@@ -1,2 +1,35 @@
+# Environment and credentials
 .env
+.env.*
+!.env.example
 service-account-*.json
+application_default_credentials.json
+*.pem
+*.key
+
+# Local AI tool settings and caches
+.claude/settings.json
+.claude/settings.local.json
+.serena/
+
+# Go build and test outputs
+/app/notiflex
+/bin/
+/dist/
+*.test
+*.out
+coverage.*
+*.prof
+
+# Logs and temporary files
+*.log
+/tmp/
+
+# Editors and operating systems
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*~

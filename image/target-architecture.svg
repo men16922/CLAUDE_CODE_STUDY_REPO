@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Notiflex API target architecture</title>
+  <desc id="desc">Local development flows through Cloud Build and Artifact Registry to a two-node GKE cluster, while GitHub stores source code.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#071426"/>
+      <stop offset="1" stop-color="#10274a"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#5cc8ff"/>
+      <stop offset="1" stop-color="#7385ff"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="18" flood-color="#020817" flood-opacity=".45"/>
+    </filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="9" refY="6" orient="auto">
+      <path d="M1 1l9 5-9 5z" fill="#77d2ff"/>
+    </marker>
+    <style>
+      .label{font-family:Inter,"Noto Sans KR",sans-serif;fill:#eef7ff}.muted{fill:#9db2cf}.zone{fill:#102845;stroke:#315579;stroke-width:2}.card{fill:#112d4e;stroke:#43729b;stroke-width:2}.line{fill:none;stroke:#77d2ff;stroke-width:5;stroke-linecap:round;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <circle cx="1450" cy="-20" r="330" fill="#486cff" opacity=".08"/>
+  <circle cx="150" cy="860" r="290" fill="#30c7ff" opacity=".06"/>
+
+  <text class="label" x="90" y="90" font-size="42" font-weight="750">Notiflex API · Target Architecture</text>
+  <text class="label muted" x="90" y="132" font-size="22">로컬 코드가 빌드·저장·실행 환경을 거쳐 API가 되기까지</text>
+
+  <rect class="zone" x="70" y="195" width="350" height="585" rx="30"/>
+  <rect class="zone" x="455" y="195" width="460" height="585" rx="30"/>
+  <rect class="zone" x="950" y="195" width="580" height="585" rx="30"/>
+  <text class="label muted" x="105" y="245" font-size="18" font-weight="700" letter-spacing="2">LOCAL</text>
+  <text class="label muted" x="490" y="245" font-size="18" font-weight="700" letter-spacing="2">GCP BUILD &amp; STORAGE</text>
+  <text class="label muted" x="985" y="245" font-size="18" font-weight="700" letter-spacing="2">GKE RUNTIME</text>
+
+  <g filter="url(#shadow)">
+    <rect class="card" x="110" y="320" width="270" height="180" rx="24"/>
+    <rect x="145" y="355" width="60" height="48" rx="7" fill="#071426" stroke="#75d8ff" stroke-width="4"/>
+    <path d="M160 421h30M175 403v18" stroke="#75d8ff" stroke-width="4" stroke-linecap="round"/>
+    <text class="label" x="145" y="455" font-size="25" font-weight="750">Local Dev</text>
+    <text class="label muted" x="145" y="485" font-size="18">Claude Code + gcloud</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect class="card" x="110" y="575" width="270" height="130" rx="24"/>
+    <circle cx="155" cy="620" r="18" fill="none" stroke="#b69cff" stroke-width="4"/>
+    <circle cx="195" cy="620" r="18" fill="none" stroke="#b69cff" stroke-width="4"/>
+    <path d="M171 620h8" stroke="#b69cff" stroke-width="4"/>
+    <text class="label" x="225" y="617" font-size="23" font-weight="750">GitHub</text>
+    <text class="label muted" x="225" y="646" font-size="17">Source repository</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect class="card" x="510" y="305" width="350" height="155" rx="24"/>
+    <path d="M555 367l26-15 26 15v30l-26 15-26-15z" fill="none" stroke="#73dcff" stroke-width="4"/>
+    <path d="M581 352v60M555 367l52 30M607 367l-52 30" stroke="#73dcff" stroke-width="2" opacity=".7"/>
+    <text class="label" x="635" y="370" font-size="25" font-weight="750">Cloud Build</text>
+    <text class="label muted" x="635" y="402" font-size="18">Container image build</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect class="card" x="510" y="525" width="350" height="155" rx="24"/>
+    <ellipse cx="580" cy="575" rx="30" ry="12" fill="none" stroke="#ffcc67" stroke-width="4"/>
+    <path d="M550 575v45c0 16 60 16 60 0v-45M550 597c0 16 60 16 60 0" fill="none" stroke="#ffcc67" stroke-width="4"/>
+    <text class="label" x="635" y="590" font-size="25" font-weight="750">Artifact Registry</text>
+    <text class="label muted" x="635" y="622" font-size="18">notiflex/api:v0.1.0</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect class="card" x="1005" y="295" width="470" height="355" rx="28"/>
+    <text class="label" x="1045" y="350" font-size="27" font-weight="750">notiflex-cluster</text>
+    <text class="label muted" x="1045" y="384" font-size="18">GKE Standard · Spot VM × 2</text>
+    <rect x="1045" y="425" width="180" height="130" rx="20" fill="#0a203b" stroke="#527eaa" stroke-width="2"/>
+    <rect x="1255" y="425" width="180" height="130" rx="20" fill="#0a203b" stroke="#527eaa" stroke-width="2"/>
+    <circle cx="1090" cy="470" r="20" fill="#5cc8ff" opacity=".2"/>
+    <circle cx="1300" cy="470" r="20" fill="#5cc8ff" opacity=".2"/>
+    <path d="M1081 470h18M1090 461v18M1291 470h18M1300 461v18" stroke="#75d8ff" stroke-width="3" stroke-linecap="round"/>
+    <text class="label" x="1080" y="520" font-size="20" font-weight="700">Pod 1</text>
+    <text class="label" x="1290" y="520" font-size="20" font-weight="700">Pod 2</text>
+    <rect x="1090" y="590" width="300" height="105" rx="20" fill="url(#accent)"/>
+    <text class="label" x="1130" y="635" font-size="24" font-weight="800">Notiflex API</text>
+    <text class="label" x="1130" y="668" font-size="18">/health · /id</text>
+  </g>
+
+  <path class="line" d="M380 410H485"/>
+  <path class="line" d="M685 460V500"/>
+  <path class="line" d="M860 602H975V480H1005"/>
+  <path d="M245 500v50" fill="none" stroke="#b69cff" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)"/>
+  <text class="label muted" x="422" y="390" font-size="16">submit</text>
+  <text class="label muted" x="710" y="490" font-size="16">push</text>
+  <text class="label muted" x="900" y="580" font-size="16">pull &amp; deploy</text>
+</svg>

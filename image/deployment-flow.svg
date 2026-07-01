@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="900" viewBox="0 0 1800 900" role="img" aria-labelledby="title desc">
+  <title id="title">Notiflex API deployment flow</title>
+  <desc id="desc">A six-step flow from Go code through container build, registry, Kubernetes deployment, and API verification.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f5f8fc"/><stop offset="1" stop-color="#e9f1fb"/></linearGradient>
+    <linearGradient id="rail" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#4f8cff"/><stop offset=".5" stop-color="#45bdd8"/><stop offset="1" stop-color="#43c58b"/></linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#31506f" flood-opacity=".16"/></filter>
+    <style>.txt{font-family:Inter,"Noto Sans KR",sans-serif;fill:#142940}.muted{fill:#66809b}.card{fill:#fff;stroke:#d3e0ee;stroke-width:2}</style>
+  </defs>
+  <rect width="1800" height="900" fill="url(#bg)"/>
+  <text class="txt" x="100" y="105" font-size="44" font-weight="780">Deployment Flow</text>
+  <text class="txt muted" x="100" y="150" font-size="22">코드에서 검증까지, 하나의 배포 파이프라인으로 연결한다</text>
+  <rect x="130" y="410" width="1540" height="12" rx="6" fill="url(#rail)" opacity=".75"/>
+
+  <g filter="url(#shadow)">
+    <rect class="card" x="70" y="250" width="250" height="390" rx="28"/>
+    <circle cx="120" cy="305" r="27" fill="#4f8cff"/><text x="120" y="314" text-anchor="middle" font-family="Inter,sans-serif" fill="#fff" font-size="24" font-weight="800">1</text>
+    <rect x="112" y="385" width="78" height="58" rx="8" fill="#e8f0ff" stroke="#4f8cff" stroke-width="4"/><path d="M132 415l14 12 28-29" fill="none" stroke="#4f8cff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <text class="txt" x="110" y="500" font-size="27" font-weight="780">Code</text>
+    <text class="txt muted" x="110" y="538" font-size="19">Go 1.25 API</text>
+    <text class="txt muted" x="110" y="570" font-size="19">main.go</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect class="card" x="350" y="250" width="250" height="390" rx="28"/>
+    <circle cx="400" cy="305" r="27" fill="#4f9eff"/><text x="400" y="314" text-anchor="middle" font-family="Inter,sans-serif" fill="#fff" font-size="24" font-weight="800">2</text>
+    <path d="M402 385h64l30 30-30 30h-64l-30-30z" fill="#e8f6ff" stroke="#4f9eff" stroke-width="4"/><path d="M402 385v60M466 385v60" stroke="#4f9eff" stroke-width="3" opacity=".5"/>
+    <text class="txt" x="390" y="500" font-size="27" font-weight="780">Container</text>
+    <text class="txt muted" x="390" y="538" font-size="19">Multi-stage build</text>
+    <text class="txt muted" x="390" y="570" font-size="19">Alpine → scratch</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect class="card" x="630" y="250" width="250" height="390" rx="28"/>
+    <circle cx="680" cy="305" r="27" fill="#45b2e5"/><text x="680" y="314" text-anchor="middle" font-family="Inter,sans-serif" fill="#fff" font-size="24" font-weight="800">3</text>
+    <path d="M683 388l43-24 43 24v50l-43 24-43-24z" fill="#e5f8fb" stroke="#45b2e5" stroke-width="4"/><path d="M726 364v98M683 388l86 50M769 388l-86 50" stroke="#45b2e5" stroke-width="2" opacity=".6"/>
+    <text class="txt" x="670" y="500" font-size="27" font-weight="780">Build</text>
+    <text class="txt muted" x="670" y="538" font-size="19">Cloud Build</text>
+    <text class="txt muted" x="670" y="570" font-size="19">Reproducible image</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect class="card" x="910" y="250" width="250" height="390" rx="28"/>
+    <circle cx="960" cy="305" r="27" fill="#43bdba"/><text x="960" y="314" text-anchor="middle" font-family="Inter,sans-serif" fill="#fff" font-size="24" font-weight="800">4</text>
+    <ellipse cx="1004" cy="390" rx="48" ry="18" fill="#e1f8f5" stroke="#43bdba" stroke-width="4"/><path d="M956 390v62c0 24 96 24 96 0v-62M956 420c0 24 96 24 96 0" fill="none" stroke="#43bdba" stroke-width="4"/>
+    <text class="txt" x="950" y="500" font-size="27" font-weight="780">Store</text>
+    <text class="txt muted" x="950" y="538" font-size="19">Artifact Registry</text>
+    <text class="txt muted" x="950" y="570" font-size="19">api:v0.1.0</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect class="card" x="1190" y="250" width="250" height="390" rx="28"/>
+    <circle cx="1240" cy="305" r="27" fill="#43c59f"/><text x="1240" y="314" text-anchor="middle" font-family="Inter,sans-serif" fill="#fff" font-size="24" font-weight="800">5</text>
+    <circle cx="1295" cy="415" r="52" fill="#e2f9ef" stroke="#43c59f" stroke-width="4"/><path d="M1295 375v80M1255 415h80M1267 387l56 56M1323 387l-56 56" stroke="#43c59f" stroke-width="3"/><circle cx="1295" cy="415" r="17" fill="#fff" stroke="#43c59f" stroke-width="3"/>
+    <text class="txt" x="1230" y="500" font-size="27" font-weight="780">Deploy</text>
+    <text class="txt muted" x="1230" y="538" font-size="19">Kubernetes manifests</text>
+    <text class="txt muted" x="1230" y="570" font-size="19">GKE · replicas: 2</text>
+  </g>
+  <g filter="url(#shadow)">
+    <rect class="card" x="1470" y="250" width="250" height="390" rx="28"/>
+    <circle cx="1520" cy="305" r="27" fill="#43c57c"/><text x="1520" y="314" text-anchor="middle" font-family="Inter,sans-serif" fill="#fff" font-size="24" font-weight="800">6</text>
+    <circle cx="1576" cy="414" r="48" fill="#e5faed" stroke="#43c57c" stroke-width="4"/><path d="M1552 414l17 18 34-39" fill="none" stroke="#43c57c" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    <text class="txt" x="1510" y="500" font-size="27" font-weight="780">Verify</text>
+    <text class="txt muted" x="1510" y="538" font-size="19">/health · /id</text>
+    <text class="txt muted" x="1510" y="570" font-size="19">2 Pods responding</text>
+  </g>
+
+  <text class="txt muted" x="900" y="750" text-anchor="middle" font-size="20">Code → Image → Registry → Cluster → API</text>
+</svg>
