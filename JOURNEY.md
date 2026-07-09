@@ -35,3 +35,19 @@
 - **GitHub Secrets 등록**: `GCP_PROJECT_ID` 및 `GCP_SA_KEY` (JSON 키) 등록 완료
 - **워크플로우 구현**: `.github/workflows/ci.yaml`을 추가하여 `app/**` 푸시 시 자동으로 Docker 이미지를 빌드해 Artifact Registry에 푸시하고, `deployment.yaml` 내의 이미지 태그를 커밋 SHA로 변경한 후 커밋 및 푸시하도록 구현
 - **전체 파이프라인 검증**: 코드 수정 및 푸시 시, GitHub Actions 빌드 -> `deployment.yaml` 이미지 태그 갱신 및 Git push -> Argo CD가 이를 감지하여 GKE 클러스터에 롤아웃하는 통합 파이프라인 동작 확인 완료 (최종 배포 이미지 태그: `7eac328`)
+
+## 4장. 관측 가능성 한 번에 구축하기
+
+### 1. Prometheus + Grafana 구성 (메트릭 모니터링)
+- **설치**: `kube-prometheus-stack` Helm chart를 사용해 메트릭 수집 및 시각화 환경을 구축했습니다.
+- **리소스 튜닝**: e2-medium 노드(2대) 자원 한계를 고려하여 `helm-values/kube-prometheus.yaml`을 생성하고 CPU/메모리 Requests를 최소한으로 제한(`Prometheus 100m`, `Grafana 50m`, `Alertmanager 25m`)해 배포했습니다.
+- **Loki 데이터 소스 연동**: Grafana 프로비저닝 설정(`additionalDataSources`)에 Loki 서비스를 지정하여, Grafana UI 내에서 Loki 로그를 즉시 쿼리할 수 있도록 구성했습니다.
+
+### 2. Loki + Fluent Bit 구성 (중앙 로그 수집)
+- **Loki 설치**: 최소 리소스(10m/128Mi) 및 SingleBinary 모드로 Loki(`grafana/loki`)를 배포 완료했습니다.
+- **Fluent Bit 연동**: DaemonSet 형태로 각 노드에 배포되는 `grafana/fluent-bit`를 설치하고, output host를 `loki`로 설정하여 모든 컨테이너의 stdout 로그가 Loki로 안전하게 전송되도록 구축했습니다.
+- **검증**: `notiflex-api` 애플리케이션의 롤링 재시작을 통해 부팅 로그(`Starting server on port :8080`)가 정상 생성되도록 하고, Grafana Explore 뷰에서 `{namespace="notiflex"}` 쿼리를 통해 로그 수집 화면을 검증 완료했습니다.
+
+### 3. PrometheusRule 설정 (임계값 알림)
+- **리소스 정의**: `k8s/monitoring/pod-restart-alert.yaml`에 `notiflex` namespace 내의 Pod가 5분 내 2회 이상 재시작되는 것을 감지하는 `PodRestartTooMany` 경고 규칙을 생성하여 클러스터에 반영 완료했습니다.
+
