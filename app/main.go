@@ -20,6 +20,10 @@ type IdResponse struct {
 	GeneratedBy string `json:"generated_by"`
 }
 
+type VersionResponse struct {
+	Version string `json:"version"`
+}
+
 func main() {
 	podName := os.Getenv("HOSTNAME")
 	if podName == "" {
@@ -46,6 +50,15 @@ func main() {
 			ID:          fmt.Sprintf("%d", id),
 			GeneratedBy: podName,
 		})
+	})
+
+	http.HandleFunc("/version", func(w http.ResponseWriter, r *http.Request) {
+		if r.Method != http.MethodGet {
+			w.WriteHeader(http.StatusMethodNotAllowed)
+			return
+		}
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(VersionResponse{Version: "v0.1.1"})
 	})
 
 	port := ":8080"

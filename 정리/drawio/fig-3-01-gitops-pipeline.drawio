@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mxfile host="app.diagrams.net" modified="2026-07-09T00:00:00.000000+00:00" agent="ChatGPT" version="24.7.17" type="device">
+  <diagram name="fig-3-01 GitOps Pipeline" id="fig-3-01-GitOps-Pipeline">
+    <mxGraphModel dx="1422" dy="794" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1050" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="t3" value="&lt;b&gt;그림 3-1. 최종 GitOps 파이프라인&lt;/b&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=24;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="300" y="20" width="800" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="t4" value="CI는 클러스터를 직접 수정하지 않고 Git 매니페스트를 갱신한다. Argo CD는 Git을 기준으로 GKE를 동기화한다." style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=15;spacing=4;" vertex="1" parent="1">
+          <mxGeometry x="220" y="65" width="960" height="32" as="geometry"/>
+        </mxCell>
+        <mxCell id="n5" value="&lt;b&gt;Developer&lt;/b&gt;&lt;br/&gt;코드 수정" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=2;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="560" y="120" width="280" height="68" as="geometry"/>
+        </mxCell>
+        <mxCell id="n6" value="GitHub Repository&lt;br/&gt;&lt;span style=&quot;font-size:12px&quot;&gt;app/** 변경 Push&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=2;fillColor=#ffffff;strokeColor=#333333;fontSize=14;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="560" y="220" width="280" height="76" as="geometry"/>
+        </mxCell>
+        <mxCell id="n7" value="&lt;b&gt;GitHub Actions CI&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=2;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="560" y="332" width="280" height="64" as="geometry"/>
+        </mxCell>
+        <mxCell id="n8" value="Docker Build" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=2;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="180" y="450" width="200" height="56" as="geometry"/>
+        </mxCell>
+        <mxCell id="n9" value="Artifact Registry&lt;br/&gt;Image Push" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=2;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=14;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="430" y="450" width="210" height="56" as="geometry"/>
+        </mxCell>
+        <mxCell id="n10" value="deployment.yaml&lt;br/&gt;image tag update" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=2;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="690" y="450" width="230" height="56" as="geometry"/>
+        </mxCell>
+        <mxCell id="n11" value="CI git commit &amp; push" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=2;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=14;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="970" y="450" width="220" height="56" as="geometry"/>
+        </mxCell>
+        <mxCell id="n12" value="Git Repository&lt;br/&gt;&lt;span style=&quot;font-size:12px&quot;&gt;desired state&lt;/span&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=2;fillColor=#ffffff;strokeColor=#333333;fontSize=14;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="560" y="560" width="280" height="72" as="geometry"/>
+        </mxCell>
+        <mxCell id="n13" value="&lt;b&gt;Argo CD&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=2;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=14;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="560" y="670" width="280" height="64" as="geometry"/>
+        </mxCell>
+        <mxCell id="n14" value="Compare&lt;br/&gt;Git vs Cluster" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=2;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=14;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="220" y="790" width="220" height="64" as="geometry"/>
+        </mxCell>
+        <mxCell id="n15" value="Auto Sync" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=2;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=14;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="560" y="790" width="220" height="64" as="geometry"/>
+        </mxCell>
+        <mxCell id="n16" value="Self-Heal / Prune" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=2;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=14;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="900" y="790" width="220" height="64" as="geometry"/>
+        </mxCell>
+        <mxCell id="n17" value="&lt;b&gt;GKE Deployment&lt;/b&gt;" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=2;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="560" y="890" width="280" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="n18" value="Rolling Update&lt;br/&gt;Notiflex API Pods" style="rounded=1;whiteSpace=wrap;html=1;arcSize=14;strokeWidth=2;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;spacing=8;" vertex="1" parent="1">
+          <mxGeometry x="560" y="970" width="280" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="e19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="n5" target="n6" value="git push">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="n6" target="n7" value="trigger">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.15;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="n7" target="n8">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="602" y="420"/>
+              <mxPoint x="280" y="420"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;" edge="1" parent="1" source="n8" target="n9">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;" edge="1" parent="1" source="n9" target="n10">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;" edge="1" parent="1" source="n10" target="n11">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="n11" target="n12">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1080" y="530"/>
+              <mxPoint x="1080" y="596"/>
+              <mxPoint x="840" y="596"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;" edge="1" parent="1" source="n12" target="n13" value="watched by">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.2;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="n13" target="n14">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="616" y="760"/>
+              <mxPoint x="330" y="760"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;" edge="1" parent="1" source="n13" target="n15">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.8;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="n13" target="n16">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="784" y="760"/>
+              <mxPoint x="1010" y="760"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;" edge="1" parent="1" source="n15" target="n17">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=block;endFill=1;strokeWidth=2;" edge="1" parent="1" source="n17" target="n18">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
