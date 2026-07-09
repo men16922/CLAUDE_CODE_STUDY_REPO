@@ -213,6 +213,9 @@ Grafana에는 기본 대시보드가 자동으로 포함됩니다.
 - Kubernetes / Compute Resources / Namespace
 - Node Exporter / Nodes
 
+### 📸 실습 인증: Grafana Cluster Compute Resources 대시보드
+![Grafana Cluster Metrics 실습 인증](./images/ch04/grafana-metrics.png)
+
 ## Prometheus 수집 확인
 
 ```bash
@@ -648,6 +651,9 @@ curl -s http://localhost:9090/api/v1/rules   | jq '.data.groups[] | select(.name
 ```
 
 Prometheus가 `PodRestartTooMany` 규칙을 정상적으로 로드한 상태입니다.
+
+### 📸 실습 인증: Grafana Alert Rules 상태 확인
+![Grafana Alert Rules 실습 인증](./images/ch04/grafana-alerts.png)
 
 ## 테스트 시 주의점
 
