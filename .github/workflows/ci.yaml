@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+    paths: ['app/**']
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - uses: google-github-actions/setup-gcloud@v2
+
+      - name: Configure Docker for AR
+        run: gcloud auth configure-docker asia-northeast3-docker.pkg.dev
+
+      - name: Build and Push
+        id: build
+        run: |
+          IMAGE=asia-northeast3-docker.pkg.dev/claude-study-501117/notiflex/api
+          TAG=$(echo $GITHUB_SHA | cut -c1-7)
+          docker build -t $IMAGE:$TAG app/
+          docker push $IMAGE:$TAG
+          echo "image=$IMAGE:$TAG" >> $GITHUB_OUTPUT
+
+      - name: Update manifest image tag
+        run: |
+          sed -i 's|image: .*notiflex/api:.*|image: ${{ steps.build.outputs.image }}|' \
+            k8s/smb/deployment.yaml
+
+      - name: Configure git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Commit and push manifest
+        run: |
+          git add k8s/smb/deployment.yaml
+          git diff --cached --quiet && echo "no changes" && exit 0
+          git commit -m "ci: update image tag to $(echo $GITHUB_SHA | cut -c1-7)"
+          git push
