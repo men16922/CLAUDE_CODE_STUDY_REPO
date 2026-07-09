@@ -1,0 +1,10 @@
+flowchart LR
+    A[Application Pod\nnotiflex-api] -- /metrics --> B[Prometheus]
+    A -- stdout --> C[Fluent Bit x2\nDaemonSet]
+    D[kube-state-metrics\nnode-exporter x2] --> B
+    B --> E[Grafana]
+    C --> F[Loki]
+    F --> E
+    B --> G[PrometheusRule\nPodRestartTooMany]
+    G --> H[Alertmanager]
+    H --> I[Slack / Email]

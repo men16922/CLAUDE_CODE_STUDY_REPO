@@ -1,0 +1,4 @@
+flowchart LR
+    A[Prometheus] --> B[PrometheusRule]
+    B --> C[Alertmanager]
+    C --> D[Slack / Email / PagerDuty]

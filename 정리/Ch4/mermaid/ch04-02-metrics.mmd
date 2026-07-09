@@ -1,0 +1,4 @@
+flowchart LR
+    A[Application Pod /metrics] -->|pull scrape| B[Prometheus]
+    C[kube-state-metrics + node-exporter] --> B
+    B -->|PromQL| D[Grafana]
