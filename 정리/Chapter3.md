@@ -463,6 +463,9 @@ stateDiagram-v2
 
 `Synced`는 Git과 클러스터 상태가 같다는 뜻이고, `Healthy`는 Kubernetes 관점에서 리소스가 정상이라는 뜻입니다.
 
+### 📸 실습 인증: Argo CD 애플리케이션 생성 완료
+![Argo CD 대시보드 실습 인증](./images/ch03/argocd-dashboard.png)
+
 </details>
 
 ---
@@ -1267,6 +1270,9 @@ Pod 순차 교체
 
 이제 개발자는 코드 수정 후 Git에 푸시하기만 하면 됩니다. 이미지 빌드, 매니페스트 갱신, 배포, Pod 교체는 자동으로 이어집니다.
 
+### 📸 실습 인증: 최종 CI/CD 연동 및 리소스 트리 확인
+![Argo CD 상세 리소스 트리 실습 인증](./images/ch03/argocd-details.png)
+
 </details>
 
 ---
@@ -1510,6 +1516,11 @@ Pod는 살아 있는가?
 로그는 어디에 있는가?
 어떤 버전부터 문제가 생겼는가?
 ```
+
+## 🔗 관련 관리 콘솔 링크
+- [Google Cloud Console - GKE 클러스터 상세](https://console.cloud.google.com/kubernetes/workload_/gcloud/asia-northeast3-a/notiflex-cluster?project=claude-study-501117)
+- [Google Cloud Console - Artifact Registry](https://console.cloud.google.com/artifacts/docker/claude-study-501117/asia-northeast3/notiflex?project=claude-study-501117)
+- [Argo CD Web UI (Local Port-Forward)](https://localhost:8443)
 
 따라서 4장에서는 이 문제를 해결하기 위해 **관측 가능성(Observability)**을 구축합니다.
 
