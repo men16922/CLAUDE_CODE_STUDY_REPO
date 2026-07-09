@@ -62,6 +62,7 @@ func main() {
 	})
 
 	port := ":8080"
+	// Trigger CI build test
 	log.Printf("Starting server on port %s", port)
 	if err := http.ListenAndServe(port, nil); err != nil {
 		log.Fatalf("Server failed to start: %v", err)
