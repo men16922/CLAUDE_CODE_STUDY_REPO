@@ -51,3 +51,7 @@
 ### 3. PrometheusRule 설정 (임계값 알림)
 - **리소스 정의**: `k8s/monitoring/pod-restart-alert.yaml`에 `notiflex` namespace 내의 Pod가 5분 내 2회 이상 재시작되는 것을 감지하는 `PodRestartTooMany` 경고 규칙을 생성하여 클러스터에 반영 완료했습니다.
 
+### 4. [추가 실험] Platform Agent (Kiro) 아키텍처 수립
+- **아이디어**: 자연어 명령과 단일 ServiceSpec YAML 조합으로 멀티클라우드(AWS, GCP, Azure, On-Prem)에 동일한 파이프라인(Build ➔ Push ➔ Deploy ➔ Validate)을 태우는 AI 플랫폼 에이전트(Kiro) 아키텍처를 정의하고 이를 `Chapter4.md`에 추가 실험으로 문서화했습니다.
+
+

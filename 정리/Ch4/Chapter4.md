@@ -958,6 +958,67 @@ GKE: notiflex-cluster
 - [Google Cloud Console - GKE 클러스터 상세 (모니터링 탭)](https://console.cloud.google.com/kubernetes/workload_/gcloud/asia-northeast3-a/notiflex-cluster?project=claude-study-501117)
 - [Grafana Local Web UI](http://localhost:3000)
 
+## 🧪 [추가 실험] Platform Agent (Kiro) — 멀티클라우드 자동 배포
+
+본 실습과 별개로, 자연어 명령과 단일 스펙 파일만으로 멀티클라우드(EKS, GKE, AKS, On-Prem)에 동일한 파이프라인을 실행하는 **AI 플랫폼 에이전트(Kiro) 아키텍처**를 구상하고 실험합니다.
+
+### 1. 아키텍처 개요
+사용자는 복잡한 클라우드별 배포 명령어(CLI)를 몰라도, 자연어 한 줄과 공통 서비스 명세서(YAML) 단 1개만 에이전트에게 제공하면 됩니다. AI 에이전트 `Kiro`가 컨텍스트를 파싱하여 대상 클라우드에 맞는 빌드/배포 도구를 매핑하여 수행합니다.
+
+```mermaid
+graph TD
+    User([사용자]) -->|1. 자연어 명령 배포 요청| Kiro[AI Agent: Kiro]
+    Spec[orders-api.yaml<br>단일 ServiceSpec] -.->|2. 스펙 참조| Kiro
+    
+    Kiro -->|3. 클라우드별 실행 위임| Pipeline[공통 배포 파이프라인]
+    
+    subgraph Pipeline [Build ➔ Push ➔ Deploy ➔ Validate]
+        direction TB
+        B[Build] --> P[Push] --> D[Deploy] --> V[Validate]
+    end
+    
+    Pipeline -->|AWS EKS| AWS[AWS: CodeBuild / ECR / EKS]
+    Pipeline -->|GCP GKE| GCP[GCP: Cloud Build / Artifact Registry / GKE]
+    Pipeline -->|Azure AKS| Azure[Azure: ACR Tasks / ACR / AKS]
+    Pipeline -->|On-Prem| OnPrem[On-Prem: Docker / Private Registry / K8s]
+```
+
+### 2. ServiceSpec 정의 (orders-api.yaml)
+클라우드 벤더에 종속되지 않는 최소한의 공통 파라미터만 정의합니다.
+
+```yaml
+# orders-api.yaml
+name: orders-api
+image: orders-api
+version: v1.4.2
+replicas: 3
+ports: [8080]
+health: /healthz
+```
+
+### 3. 클라우드 Provider별 파이프라인 매핑 구조
+
+동일한 추상 파이프라인(`Build ➔ Push ➔ Deploy ➔ Validate`) 하위에서, 각 클라우드 제공업체별로 실행되는 구체적인 기술 스택 매핑은 다음과 같습니다.
+
+| 단계 | AWS (EKS) | GCP (GKE) | Azure (AKS) | On-Prem K8s |
+| :--- | :--- | :--- | :--- | :--- |
+| **Build** | AWS CodeBuild | GCP Cloud Build | ACR Tasks | Local `docker build` |
+| **Push** | AWS ECR | GCP Artifact Registry | Azure Container Registry | Private Registry |
+| **Deploy** | `kubectl` ➔ EKS | `kubectl` ➔ GKE | `kubectl` ➔ AKS | `kubectl` ➔ Local K8s |
+| **Validate** | HTTP Health Check | HTTP Health Check | HTTP Health Check | HTTP Health Check |
+
+### 4. 에이전트 시나리오 예시
+1. **사용자 요청**: `"orders-api를 v1.4.2로 GCP(GKE) 환경에 replicas 3개로 배포해줘."`
+2. **Kiro의 해석**:
+   - `orders-api.yaml`에서 타겟 사양 파싱
+   - 타겟 프로바이더 `GCP` 인식
+   - 실행 계획 구성:
+     1. GCP Cloud Build 호출하여 컨테이너 이미지 빌드
+     2. GCR/Artifact Registry로 푸시
+     3. GKE 클러스터에 Deployment 리소스 생성/갱신 (`replicas: 3`)
+     4. `/healthz` 경로로 Pod 헬스체크 성공 여부 최종 검증(Validate)
+3. **결과 보고**: `"GCP GKE 환경에 orders-api v1.4.2 배포가 완료되었으며, 3개의 Pod가 Healthy 상태임을 확인했습니다."`
+
 ## 다음 장으로 이어지는 문제
 
 4장이 끝나면 서비스 상태를 볼 수 있게 됩니다.
