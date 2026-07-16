@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1672" height="941" viewBox="0 0 1672 941">
+  <defs>
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#eef5ff"/><stop offset="1" stop-color="#dbeafe"/></linearGradient>
+    <linearGradient id="green" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#effdf4"/><stop offset="1" stop-color="#dcfce7"/></linearGradient>
+    <linearGradient id="purple" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#faf5ff"/><stop offset="1" stop-color="#f3e8ff"/></linearGradient>
+    <linearGradient id="red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff5f5"/><stop offset="1" stop-color="#fee2e2"/></linearGradient>
+    <marker id="aGray" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12Z" fill="#6b7280"/></marker>
+    <marker id="aRed" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12Z" fill="#ef2626"/></marker>
+    <style>text{font-family:Arial,'Noto Sans KR','Apple SD Gothic Neo',sans-serif;fill:#111827}.title{font-size:54px;font-weight:700}.sub{font-size:25px;fill:#4b5563}.h{font-size:26px;font-weight:700}.b{font-size:20px;font-weight:700}.s{font-size:17px;fill:#586174}.cap{font-size:20px;fill:#586174}.box{stroke-width:2.5}.line{fill:none;stroke-width:4}</style>
+  </defs>
+  <rect width="1672" height="941" fill="#fff"/>
+  <text x="836" y="63" text-anchor="middle" class="title">Canary 점진 배포와 중단 흐름</text>
+  <text x="836" y="108" text-anchor="middle" class="sub">20% → 50% → 80% 단계마다 관찰하고, 이상 시 Stable로 즉시 복귀</text>
+
+  <g>
+    <rect x="45" y="170" width="300" height="548" rx="24" fill="#fcfcfd" stroke="#9ca3af" stroke-width="2.5"/>
+    <circle cx="95" cy="215" r="25" fill="#2563eb"/><text x="95" y="224" text-anchor="middle" class="b" fill="#fff">1</text>
+    <text x="145" y="225" class="h">현재 운영</text>
+    <rect class="box" x="83" y="290" width="224" height="124" rx="18" fill="url(#blue)" stroke="#2563eb"/>
+    <text x="195" y="340" text-anchor="middle" class="b">Stable v0.4.0</text><text x="195" y="380" text-anchor="middle" class="h">100%</text>
+    <text x="195" y="492" text-anchor="middle" class="s">새 버전 배포 전</text><text x="195" y="526" text-anchor="middle" class="s">모든 요청을 Stable이 처리</text>
+  </g>
+
+  <g>
+    <rect x="375" y="170" width="300" height="548" rx="24" fill="#fcfcfd" stroke="#9ca3af" stroke-width="2.5"/>
+    <circle cx="425" cy="215" r="25" fill="#7c3aed"/><text x="425" y="224" text-anchor="middle" class="b" fill="#fff">2</text>
+    <text x="475" y="225" class="h">초기 노출</text>
+    <rect class="box" x="413" y="285" width="224" height="86" rx="16" fill="url(#blue)" stroke="#2563eb"/>
+    <text x="525" y="338" text-anchor="middle" class="b">Stable 80%</text>
+    <rect class="box" x="413" y="394" width="224" height="86" rx="16" fill="url(#purple)" stroke="#7c3aed"/>
+    <text x="525" y="447" text-anchor="middle" class="b">Canary 20%</text>
+    <rect x="430" y="536" width="190" height="62" rx="14" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+    <text x="525" y="575" text-anchor="middle" class="b">30초 관찰</text>
+    <text x="525" y="646" text-anchor="middle" class="s">에러율·지연 시간 확인</text>
+  </g>
+
+  <g>
+    <rect x="705" y="170" width="300" height="548" rx="24" fill="#fcfcfd" stroke="#9ca3af" stroke-width="2.5"/>
+    <circle cx="755" cy="215" r="25" fill="#16a34a"/><text x="755" y="224" text-anchor="middle" class="b" fill="#fff">3</text>
+    <text x="805" y="225" class="h">점진 확대</text>
+    <rect class="box" x="743" y="285" width="224" height="86" rx="16" fill="url(#green)" stroke="#16a34a"/>
+    <text x="855" y="338" text-anchor="middle" class="b">Canary 50%</text>
+    <path d="M855 384V414" stroke="#6b7280" stroke-width="3" marker-end="url(#aGray)"/>
+    <rect class="box" x="743" y="430" width="224" height="86" rx="16" fill="url(#green)" stroke="#16a34a"/>
+    <text x="855" y="483" text-anchor="middle" class="b">Canary 80%</text>
+    <text x="855" y="580" text-anchor="middle" class="s">각 단계 30초 pause</text><text x="855" y="616" text-anchor="middle" class="s">Grafana에서 상태 확인</text>
+  </g>
+
+  <g>
+    <rect x="1035" y="170" width="300" height="548" rx="24" fill="#fcfcfd" stroke="#9ca3af" stroke-width="2.5"/>
+    <circle cx="1085" cy="215" r="25" fill="#16a34a"/><text x="1085" y="224" text-anchor="middle" class="b" fill="#fff">4</text>
+    <text x="1135" y="225" class="h">승격</text>
+    <rect class="box" x="1073" y="300" width="224" height="132" rx="18" fill="url(#green)" stroke="#16a34a"/>
+    <text x="1185" y="351" text-anchor="middle" class="b">Canary v0.5.0</text><text x="1185" y="392" text-anchor="middle" class="h">100%</text>
+    <text x="1185" y="510" text-anchor="middle" class="b">새 Stable 승격</text><text x="1185" y="550" text-anchor="middle" class="s">이전 ReplicaSet 축소</text>
+  </g>
+
+  <g>
+    <rect x="1365" y="170" width="262" height="548" rx="24" fill="#fcfcfd" stroke="#9ca3af" stroke-width="2.5"/>
+    <circle cx="1415" cy="215" r="25" fill="#ef2626"/><text x="1415" y="224" text-anchor="middle" class="b" fill="#fff">!</text>
+    <text x="1465" y="225" class="h">이상 감지</text>
+    <rect class="box" x="1402" y="300" width="188" height="112" rx="18" fill="url(#red)" stroke="#ef2626"/>
+    <text x="1496" y="350" text-anchor="middle" class="h">abort</text><text x="1496" y="385" text-anchor="middle" class="s">Canary 제거</text>
+    <path class="line" d="M1496 430V486" stroke="#ef2626" marker-end="url(#aRed)"/>
+    <rect class="box" x="1402" y="500" width="188" height="112" rx="18" fill="url(#blue)" stroke="#2563eb"/>
+    <text x="1496" y="548" text-anchor="middle" class="b">Stable 복귀</text><text x="1496" y="584" text-anchor="middle" class="s">운영 트래픽 100%</text>
+  </g>
+
+  <path class="line" d="M345 445H365" stroke="#6b7280" marker-end="url(#aGray)"/>
+  <path class="line" d="M675 445H695" stroke="#6b7280" marker-end="url(#aGray)"/>
+  <path class="line" d="M1005 445H1025" stroke="#6b7280" marker-end="url(#aGray)"/>
+  <path class="line" d="M1335 445H1355" stroke="#ef2626" stroke-dasharray="8 7" marker-end="url(#aRed)"/>
+
+  <line x1="45" y1="827" x2="1627" y2="827" stroke="#94a3b8" stroke-width="2"/>
+  <text x="836" y="877" text-anchor="middle" class="cap">그림 6-4. Canary는 트래픽 비율을 단계적으로 높이고, 문제가 보이면 abort로 Stable에 즉시 복귀한다.</text>
+</svg>

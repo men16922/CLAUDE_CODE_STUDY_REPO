@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1672" height="941" viewBox="0 0 1672 941">
+  <defs>
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#eef5ff"/><stop offset="1" stop-color="#dbeafe"/></linearGradient>
+    <linearGradient id="green" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#effdf4"/><stop offset="1" stop-color="#dcfce7"/></linearGradient>
+    <linearGradient id="purple" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#faf5ff"/><stop offset="1" stop-color="#f3e8ff"/></linearGradient>
+    <linearGradient id="orange" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fffaf0"/><stop offset="1" stop-color="#fef3c7"/></linearGradient>
+    <marker id="aBlue" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12Z" fill="#2563eb"/></marker>
+    <marker id="aGreen" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12Z" fill="#16a34a"/></marker>
+    <marker id="aPurple" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12Z" fill="#7c3aed"/></marker>
+    <style>
+      text{font-family:Arial,'Noto Sans KR','Apple SD Gothic Neo',sans-serif;fill:#111827}.title{font-size:54px;font-weight:700}.sub{font-size:25px;fill:#4b5563}.h{font-size:25px;font-weight:700}.b{font-size:20px;font-weight:700}.s{font-size:17px;fill:#586174}.cap{font-size:20px;fill:#586174}.box{stroke-width:2.5}.line{fill:none;stroke-width:4}
+    </style>
+  </defs>
+  <rect width="1672" height="941" fill="#fff"/>
+  <text x="836" y="63" text-anchor="middle" class="title">Chapter 6 — 엔터프라이즈 기반 정비</text>
+  <text x="836" y="108" text-anchor="middle" class="sub">공유 상태 · 외부 시크릿 · 점진적 배포 on GKE / notiflex-cluster</text>
+
+  <rect x="44" y="154" width="1584" height="626" rx="26" fill="#fcfcfd" stroke="#9ca3af" stroke-width="2.5"/>
+  <rect x="74" y="131" width="294" height="55" rx="12" fill="#fff" stroke="#94a3b8" stroke-width="2"/>
+  <text x="221" y="166" text-anchor="middle" class="h">GKE: notiflex-cluster</text>
+
+  <rect class="box" x="78" y="298" width="180" height="112" rx="18" fill="#fff" stroke="#374151"/>
+  <text x="168" y="345" text-anchor="middle" class="h">외부 사용자</text><text x="168" y="379" text-anchor="middle" class="s">HTTP 요청</text>
+
+  <rect class="box" x="323" y="268" width="224" height="172" rx="18" fill="url(#blue)" stroke="#2563eb"/>
+  <text x="435" y="320" text-anchor="middle" class="h">Gateway API</text><text x="435" y="357" text-anchor="middle" class="s">HTTPRoute</text><text x="435" y="390" text-anchor="middle" class="s">weighted routing</text>
+
+  <rect class="box" x="626" y="248" width="238" height="212" rx="20" fill="url(#purple)" stroke="#7c3aed"/>
+  <text x="745" y="304" text-anchor="middle" class="h">Argo Rollouts</text><text x="745" y="342" text-anchor="middle" class="b">Canary</text><text x="745" y="378" text-anchor="middle" class="s">20% → 50% → 80%</text><text x="745" y="410" text-anchor="middle" class="s">관찰 후 100% 승격</text>
+
+  <rect class="box" x="948" y="222" width="210" height="126" rx="18" fill="url(#blue)" stroke="#2563eb"/>
+  <text x="1053" y="270" text-anchor="middle" class="h">Stable</text><text x="1053" y="307" text-anchor="middle" class="s">notiflex-api</text>
+  <rect class="box" x="948" y="386" width="210" height="126" rx="18" fill="url(#green)" stroke="#16a34a"/>
+  <text x="1053" y="434" text-anchor="middle" class="h">Canary</text><text x="1053" y="471" text-anchor="middle" class="s">notiflex-api-preview</text>
+
+  <rect class="box" x="1255" y="284" width="244" height="168" rx="20" fill="url(#green)" stroke="#16a34a"/>
+  <text x="1377" y="332" text-anchor="middle" class="h">Valkey</text><text x="1377" y="371" text-anchor="middle" class="b">공유 상태</text><text x="1377" y="408" text-anchor="middle" class="s">INCR notiflex:id</text>
+
+  <path class="line" d="M258 354H313" stroke="#2563eb" marker-end="url(#aBlue)"/><text x="285" y="339" text-anchor="middle" class="s">request</text>
+  <path class="line" d="M547 354H616" stroke="#2563eb" marker-end="url(#aBlue)"/>
+  <path class="line" d="M864 323H938" stroke="#2563eb" marker-end="url(#aBlue)"/>
+  <path class="line" d="M864 393H938" stroke="#16a34a" marker-end="url(#aGreen)"/>
+  <path class="line" d="M1158 286C1205 286 1200 335 1245 335" stroke="#16a34a" marker-end="url(#aGreen)"/>
+  <path class="line" d="M1158 449C1205 449 1200 402 1245 402" stroke="#16a34a" marker-end="url(#aGreen)"/>
+
+  <rect class="box" x="245" y="580" width="288" height="126" rx="18" fill="url(#orange)" stroke="#d97706"/>
+  <text x="389" y="628" text-anchor="middle" class="h">Secret Manager</text><text x="389" y="666" text-anchor="middle" class="s">valkey-password · 버전/감사</text>
+  <rect class="box" x="663" y="580" width="250" height="126" rx="18" fill="url(#orange)" stroke="#d97706"/>
+  <text x="788" y="628" text-anchor="middle" class="h">GKE CSI Driver</text><text x="788" y="666" text-anchor="middle" class="s">Workload Identity</text>
+  <rect class="box" x="1038" y="580" width="364" height="126" rx="18" fill="#f8fafc" stroke="#64748b"/>
+  <text x="1220" y="625" text-anchor="middle" class="h">배포 제어와 관측</text><text x="1220" y="664" text-anchor="middle" class="s">Argo CD · Prometheus · Grafana · Loki</text>
+  <path class="line" d="M533 643H653" stroke="#d97706" stroke-dasharray="9 8" marker-end="url(#aBlue)"/>
+  <path class="line" d="M913 643C1000 643 978 516 1038 500" stroke="#7c3aed" stroke-dasharray="9 8" marker-end="url(#aPurple)"/>
+  <path class="line" d="M1220 580V525" stroke="#64748b" stroke-dasharray="9 8"/>
+
+  <line x1="45" y1="827" x2="1627" y2="827" stroke="#94a3b8" stroke-width="2"/>
+  <text x="836" y="877" text-anchor="middle" class="cap">그림 6-1. 상태·시크릿·배포 위험을 Pod 밖의 관리 가능한 계층으로 분리한다.</text>
+</svg>
