@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: api
-        image: asia-northeast3-docker.pkg.dev/claude-study-501117/notiflex/api:v0.2.0
+        image: asia-northeast3-docker.pkg.dev/claude-study-501117/notiflex/api:7a5c6c4
         ports:
         - containerPort: 8080
         readinessProbe:
