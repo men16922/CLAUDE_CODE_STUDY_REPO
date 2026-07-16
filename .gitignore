@@ -33,3 +33,6 @@ Thumbs.db
 *.swp
 *.swo
 *~
+
+# Local temporary workspaces
+_workspace/
