@@ -55,3 +55,22 @@
 - **아이디어**: 자연어 명령과 단일 ServiceSpec YAML 조합으로 멀티클라우드(AWS, GCP, Azure, On-Prem)에 동일한 파이프라인(Build ➔ Push ➔ Deploy ➔ Validate)을 태우는 AI 플랫폼 에이전트(Kiro) 아키텍처를 정의하고 이를 `Chapter4.md`에 추가 실험으로 문서화했습니다.
 
 
+
+## 5장. 무중단 배포
+
+### 1. Gateway API 도입 (외부 트래픽 관리)
+- **상태**: ✅ (완료일: 2026-07-16)
+- **도구 선택**: GKE Gateway API (`gke-l7-regional-external-managed`)
+- **이유**: NGINX Ingress Controller 등 자체 컨트롤러 구축 리소스를 아끼고 GKE 네이티브 기능을 활용해 weight 조절을 수월하게 하기 위함
+- **결과**: 외부 IP `35.216.7.224`를 통해 `/health`, `/id`, `/version` 정상 확인 및 `HealthCheckPolicy`(/health:8080) 연동 완료
+
+### 2. Blue/Green 배포 도입 (Argo Rollouts)
+- **상태**: ✅ (완료일: 2026-07-16)
+- **도구 선택**: Argo Rollouts (`BlueGreen` 전략)
+- **이유**: 배포와 검증의 단계를 완벽히 분리하고 preview 환경에서 선검증 후 auto-promote(30초) 전환하기 위함
+- **결과**: `notiflex-api` Deployment를 Rollout 리소스로 대체하고 `v0.2.0` 점진 전환 및 롤백용 ReplicaSet 딜레이 유지 구조 수립 완료
+- **CI 연동**: `.github/workflows/ci.yaml` 내 sed/add 대상을 `rollout.yaml`로 이전 완료
+
+### 3. 아키텍처 결정 기록(ADR) 작성
+- **상태**: ✅ (완료일: 2026-07-16)
+- **결과**: `docs/architecture-decisions.md` 신설 및 ADR-001 ~ ADR-007 작성 완료
