@@ -58,7 +58,7 @@ func main() {
 			return
 		}
 		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(VersionResponse{Version: "v0.1.1"})
+		json.NewEncoder(w).Encode(VersionResponse{Version: "v0.2.0"})
 	})
 
 	port := ":8080"

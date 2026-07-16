@@ -38,7 +38,7 @@ jobs:
       - name: Update manifest image tag
         run: |
           sed -i 's|image: .*notiflex/api:.*|image: ${{ steps.build.outputs.image }}|' \
-            k8s/smb/deployment.yaml
+            k8s/smb/rollout.yaml
 
       - name: Configure git identity
         run: |
@@ -47,7 +47,7 @@ jobs:
 
       - name: Commit and push manifest
         run: |
-          git add k8s/smb/deployment.yaml
+          git add k8s/smb/rollout.yaml
           git diff --cached --quiet && echo "no changes" && exit 0
           git commit -m "ci: update image tag to $(echo $GITHUB_SHA | cut -c1-7)"
           git push

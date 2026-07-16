@@ -1,15 +1,20 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
 metadata:
   name: notiflex-api
   namespace: notiflex
-  labels:
-    app: notiflex-api
 spec:
   replicas: 2
+  revisionHistoryLimit: 3
   selector:
     matchLabels:
       app: notiflex-api
+  strategy:
+    blueGreen:
+      activeService: notiflex-api
+      previewService: notiflex-api-preview
+      autoPromotionEnabled: true
+      autoPromotionSeconds: 30
   template:
     metadata:
       labels:
@@ -17,7 +22,7 @@ spec:
     spec:
       containers:
       - name: api
-        image: asia-northeast3-docker.pkg.dev/claude-study-501117/notiflex/api:7eac328
+        image: asia-northeast3-docker.pkg.dev/claude-study-501117/notiflex/api:v0.2.0
         ports:
         - containerPort: 8080
         readinessProbe:
