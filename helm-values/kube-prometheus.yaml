@@ -2,7 +2,7 @@ prometheus:
   prometheusSpec:
     resources:
       requests:
-        cpu: 100m
+        cpu: 5m
         memory: 256Mi
     retention: 24h
     storageSpec: {}
@@ -10,7 +10,7 @@ prometheus:
 grafana:
   resources:
     requests:
-      cpu: 50m
+      cpu: 5m
       memory: 128Mi
   adminPassword: notiflex-grafana
   additionalDataSources:
@@ -25,23 +25,23 @@ alertmanager:
   alertmanagerSpec:
     resources:
       requests:
-        cpu: 25m
+        cpu: 5m
         memory: 64Mi
 
 prometheusOperator:
   resources:
     requests:
-      cpu: 25m
+      cpu: 5m
       memory: 64Mi
 
 kubeStateMetrics:
   resources:
     requests:
-      cpu: 10m
+      cpu: 5m
       memory: 32Mi
 
 nodeExporter:
   resources:
     requests:
-      cpu: 10m
+      cpu: 5m
       memory: 32Mi

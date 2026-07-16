@@ -6,6 +6,7 @@ WORKDIR /src
 COPY go.mod ./
 COPY main.go ./
 
+RUN go get github.com/valkey-io/valkey-go && go mod tidy
 RUN CGO_ENABLED=0 GOOS=linux go build -o /notiflex-api main.go
 
 # Runtime Stage
