@@ -67,7 +67,7 @@
 
 | 노드풀 | 머신 타입 | 노드 수 | 주요 워크로드 |
 |--------|----------|---------|-------------|
-| default-pool | `e2-medium` | `2` | API Pod, Valkey, ArgoCD, Prometheus, Loki, Fluent Bit |
+| default-pool | `e2-medium` | `0` (Downscaled) | API Pod, Valkey, ArgoCD, Prometheus, Loki, Fluent Bit (리소스 정지 상태) |
 
 ## 트러블슈팅 이력
 
