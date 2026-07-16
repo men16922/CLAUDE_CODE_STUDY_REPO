@@ -23,19 +23,8 @@
 
 > 그림 5-1. Gateway API가 외부 트래픽을 받고, Argo Rollouts가 Blue와 Green 사이의 전환을 관리한다.
 
-```text
-외부 사용자 → Gateway API → HTTPRoute → Active Service
-                                           ↓
-                                     Argo Rollouts
-                                      ├─ Blue: 현재 운영 버전
-                                      └─ Green: 새 버전 Preview
-```
-
-<details>
-<summary>Mermaid source 보기</summary>
-
 ```mermaid
-flowchart LR
+flowchart TB
     A[Rolling Update 한계 분석] --> B[외부 트래픽 도구 비교]
     B --> C[Gateway API 구성]
     C --> D[배포 전략 비교]
@@ -44,8 +33,6 @@ flowchart LR
     F --> G[ADR 기록]
     G --> H[가드레일 점검]
 ```
-
-</details>
 
 핵심은 **새 버전을 운영 트래픽과 분리된 상태에서 먼저 준비하고 검증한 뒤, Service가 가리키는 ReplicaSet만 전환하는 것**입니다.
 
@@ -173,15 +160,6 @@ Gateway API를 선택한 이유는 다음과 같습니다.
 
 > 그림 5-3. HTTPRoute가 요청을 Service로 보내고, HealthCheckPolicy가 실제 `/health:8080` 경로로 백엔드를 검사한다.
 
-```text
-인터넷 → GKE Gateway → HTTPRoute → Service → notiflex-api Pods
-                                           ↑
-HealthCheckPolicy ───── /health:8080 ───────┘
-```
-
-<details>
-<summary>Mermaid source 보기</summary>
-
 ```mermaid
 flowchart TB
     Internet[Internet] --> LB[GKE Regional External Load Balancer]
@@ -191,8 +169,6 @@ flowchart TB
     Service --> Pods[notiflex-api Pods]
     Health[HealthCheckPolicy<br/>/health:8080] -.-> Pods
 ```
-
-</details>
 
 ## 1. GatewayClass 확인
 
@@ -375,15 +351,6 @@ curl http://localhost:8080/version
 
 > 그림 5-4. Green을 Preview에서 검증한 뒤 승격하고, 문제가 생기면 보존된 Blue로 즉시 되돌린다.
 
-```text
-Blue v1 Active → Green v2 Preview → Service selector 전환 → Green v2 Active
-      ↑                                                       │
-      └──────────────────── 문제 발생 시 롤백 ────────────────┘
-```
-
-<details>
-<summary>Mermaid source 보기</summary>
-
 ```mermaid
 flowchart LR
     Blue[Blue v1<br/>Active 100%] --> Preview[Green v2<br/>Preview 0%]
@@ -391,8 +358,6 @@ flowchart LR
     Promote --> Green[Green v2<br/>Active 100%]
     Green -. 문제 발생 시 undo .-> Blue
 ```
-
-</details>
 
 ## 도구 비교
 
@@ -751,27 +716,6 @@ Blue/Green 실행 가드레일에는 기존 `deployment.yaml`을 삭제한 뒤 `
 
 ## 최종 아키텍처
 
-```text
-GKE: notiflex-cluster
-├─ argo-rollouts namespace
-│  └─ Argo Rollouts Controller
-├─ notiflex namespace
-│  ├─ Gateway: notiflex-gateway
-│  ├─ HTTPRoute: notiflex-route
-│  ├─ HealthCheckPolicy: notiflex-healthcheck
-│  ├─ Rollout: notiflex-api
-│  ├─ Service: notiflex-api (active)
-│  └─ Service: notiflex-api-preview (preview)
-├─ monitoring namespace
-│  ├─ Prometheus + Grafana + Alertmanager
-│  └─ Loki + Fluent Bit
-└─ argocd namespace
-   └─ Argo CD
-```
-
-<details>
-<summary>Mermaid source 보기</summary>
-
 ```mermaid
 flowchart TB
     User[External User] --> Gateway[Gateway API<br/>Regional External IP]
@@ -794,8 +738,6 @@ flowchart TB
         Monitoring -.observe.-> Rollout
     end
 ```
-
-</details>
 
 ---
 

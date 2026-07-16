@@ -74,3 +74,27 @@
 ### 3. 아키텍처 결정 기록(ADR) 작성
 - **상태**: ✅ (완료일: 2026-07-16)
 - **결과**: `docs/architecture-decisions.md` 신설 및 ADR-001 ~ ADR-007 작성 완료
+
+## 6장. 엔터프라이즈를 위한 기반 정비
+
+### 1. Valkey 캐시 구성 (Pod 간 상태 공유)
+- **상태**: ✅ (완료일: 2026-07-16)
+- **도구 선택**: Valkey (`standalone` 모드)
+- **이유**: Redis 호환 프로토콜과 원자적 증가(`INCR`) 연동을 통해 여러 Pod가 동작하는 환경에서의 분산 카운터 상태 공유(ID 중복 해결) 및 라이선스 제약 극복
+- **결과**: `valkey-primary-0` 기동 및 Go app 내 백오프 연결 재시도(10회) 구현 완료. 외부 게이트웨이 요청을 통해 ID가 중복 없이 1, 2, 3... 순차적으로 단일 카운팅되는 흐름 검증 완료. 자원 절약을 위해 replicas를 2에서 1로 선제 축소.
+
+### 2. Google Secret Manager 연동 (시크릿 보안 관리)
+- **상태**: ✅ (완료일: 2026-07-16)
+- **도구 선택**: GKE Secret Manager CSI Driver (`secrets-store-gke.csi.k8s.io`) 및 Workload Identity
+- **이유**: K8s Secret의 평문(Base64) 한계를 넘고, GCP SA 키 마운트가 필요 없는 무키(keyless) 구조로 외부 시크릿 단일 진실 공급원(SSOT) 및 접근 감사를 확보하기 위함
+- **결과**: `valkey-password` 시크릿 업로드 및 GKE CSI 애드온 활성화 완료. K8s default ServiceAccount 와 GCP IAM SA 간 Workload Identity 바인딩 ➔ Pod에 `/mnt/secrets/valkey-password` 볼륨 파일 마운트 연동 성공 및 Go app 내 파일 기반 password 로딩 구조(v0.4.0) 검증 완료.
+
+### 3. Canary 배포 전환 (점진적 배포 관리)
+- **상태**: ✅ (완료일: 2026-07-16)
+- **도구 선택**: Argo Rollouts (`Canary` 전략: 20% ➔ 50% ➔ 80% ➔ 100%, 각 30초 대기)
+- **이유**: Blue/Green 배포 시의 2배 리소스 과소비 문제를 극복하고 단계적 트래픽 노출을 통한 세밀한 장애 통제를 위함
+- **결과**: `strategy.canary`로 전환 및 구 버전 리소스 클린업 후 `v0.5.0` 배포를 통해 20% -> 50% -> 80% -> 100% 점진적 트래픽 롤아웃 현황 검증 완료.
+
+### 4. 아키텍처 스냅샷 정리
+- **상태**: ✅ (완료일: 2026-07-16)
+- **결과**: `claude-context/architecture.md` 신설을 통한 AI용 1페이지 아키텍처 토폴로지 구축 및 `docs/architecture-decisions.md`에 ADR-008~010 추가 완료
