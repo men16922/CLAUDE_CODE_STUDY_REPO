@@ -24,23 +24,6 @@
 
 ![그림 8-1. 고도화 전체 구조](./images/ch08/fig-8-01-advanced-overview.png)
 
-```mermaid
-flowchart LR
-C[클라이언트] --> G[Gateway API]
-G --> A[Notiflex API]
-A --> V[Valkey INCR]
-A --> K[Kafka notifications Topic]
-K --> W[Consumer 비동기 처리]
-
-A -. OTLP Trace .-> T[Grafana Tempo]
-T --> GF[Grafana]
-M[Prometheus 메트릭] --> GF
-L[Loki 로그] --> GF
-
-CR[Kubernetes CronJob] --> H[/health 헬스체크]
-CG[command-guardrails] --> OP[위험 작업의 안전한 실행]
-```
-
 이 장에서는 **요청 처리, 장애 추적, 반복 작업, 위험 작업을 각각 독립적인 운영 계층으로 분리하고 GitOps 안에서 일관되게 관리합니다.**
 
 ---
@@ -278,9 +261,6 @@ notifications   notiflex-kafka   3            1                    True
 ![실습 인증 - Argo CD Kafka 상세 리소스 트리](./images/ch08/proof-8-02-argocd-kafka-detail.png)
 > 그림 8-1-2. (실습 인증) `kafka` Application 상세 화면에서 Strimzi KRaft 기반 `KafkaNodePool`, `Kafka`, `KafkaTopic` CRD 리소스가 정상 동기화되어 `worker-pool` 노드에 배치된 화면.
 
-> 🔗 **GCP 콘솔 직접 확인 (로그인 필요)**:  
-> [Google Cloud Console - GKE 워크로드 관리 화면](https://console.cloud.google.com/kubernetes/workload_/gcloud/asia-northeast3-a/notiflex-cluster?project=claude-study-501117)에서 `kafka` 네임스페이스에 설치된 Strimzi Cluster Operator 및 KRaft 기반 Kafka Broker Pod(`worker-pool` 배치)를 직접 시각적으로 확인하실 수 있습니다.
-
 
 
 Partition이 세 개이면 같은 Consumer Group에서 최대 세 Consumer가 동시에 유효하게 작업합니다.
@@ -483,8 +463,7 @@ NAME      READY   STATUS    RESTARTS
 tempo-0   1/1     Running   0
 ```
 
-> 🔗 **GCP 콘솔 직접 확인 (로그인 필요)**:  
-> [Google Cloud Console - GKE 워크로드 관리 화면](https://console.cloud.google.com/kubernetes/workload_/gcloud/asia-northeast3-a/notiflex-cluster?project=claude-study-501117)에서 `monitoring` 네임스페이스에 설치된 Grafana Tempo StatefulSet Pod(`ops-pool` 배치) 및 OTLP gRPC(4317) 파드 상태를 직접 시각적으로 확인하실 수 있습니다.
+![alt text](images/ch08/image.png)
 
 
 > `grafana/tempo` Chart에서 Deprecated 경고가 표시될 수 있습니다. 학습 환경에서는 단일 바이너리 구성이 충분하지만 대규모 프로덕션 환경에서는 컴포넌트를 분리하는 `tempo-distributed` 구성을 검토합니다.
@@ -729,7 +708,7 @@ notiflex-healthcheck   */5 * * * *   False     0
 ```
 
 > 🔗 **GCP 콘솔 직접 확인 (로그인 필요)**:  
-> [Google Cloud Console - GKE CronJob 관리 화면](https://console.cloud.google.com/kubernetes/cronjob/asia-northeast3-a/notiflex-cluster/notiflex/notiflex-healthcheck?project=claude-study-501117)에서 5분마다 `ops-pool` 노드에서 자동 실행되는 헬스체크 배치 Job의 내역을 직접 확인하실 수 있습니다.
+![alt text](images/ch08/image2.png)
 
 
 첫 스케줄을 기다리지 않고 CronJob에서 일회성 Job을 생성해 즉시 검증합니다.
