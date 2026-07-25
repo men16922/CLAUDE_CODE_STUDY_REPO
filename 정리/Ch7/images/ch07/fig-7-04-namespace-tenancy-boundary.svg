@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1672" height="941" viewBox="0 0 1672 941">
+  <defs>
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#eef5ff"/><stop offset="1" stop-color="#dbeafe"/></linearGradient>
+    <linearGradient id="green" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#effdf4"/><stop offset="1" stop-color="#dcfce7"/></linearGradient>
+    <linearGradient id="amber" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fffbeb"/><stop offset="1" stop-color="#fef3c7"/></linearGradient>
+    <marker id="blueArrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12Z" fill="#2563eb"/></marker>
+    <marker id="greenArrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12Z" fill="#16a34a"/></marker>
+    <style>text{font-family:Arial,'Noto Sans KR','Apple SD Gothic Neo',sans-serif;fill:#111827}.title{font-size:54px;font-weight:700}.sub{font-size:25px;fill:#4b5563}.h{font-size:30px;font-weight:700}.b{font-size:22px;font-weight:700}.s{font-size:18px;fill:#586174}.cap{font-size:20px;fill:#586174}.box{stroke-width:2.5}.blueLine{fill:none;stroke:#2563eb;stroke-width:4;marker-end:url(#blueArrow)}.greenLine{fill:none;stroke:#16a34a;stroke-width:4;marker-end:url(#greenArrow)}</style>
+  </defs>
+  <rect width="1672" height="941" fill="#fff"/>
+  <text x="836" y="63" text-anchor="middle" class="title">Namespace 기반 멀티 테넌시</text>
+  <text x="836" y="108" text-anchor="middle" class="sub">컴퓨팅과 배포 경계는 분리하되 공유 데이터의 한계를 함께 확인</text>
+
+  <rect class="box" x="72" y="294" width="230" height="144" rx="20" fill="#f8fafc" stroke="#64748b"/>
+  <text x="187" y="348" text-anchor="middle" class="h">Gateway API</text>
+  <text x="187" y="396" text-anchor="middle" class="s">외부 요청 분기</text>
+
+  <rect x="390" y="164" width="548" height="486" rx="24" fill="#f8fbff" stroke="#2563eb" stroke-width="3"/>
+  <rect x="420" y="142" width="280" height="52" rx="13" fill="#fff" stroke="#2563eb" stroke-width="2"/>
+  <text x="560" y="176" text-anchor="middle" class="b">notiflex Namespace</text>
+  <text x="664" y="244" text-anchor="middle" class="h">SMB 테넌트</text>
+  <rect class="box" x="470" y="292" width="388" height="122" rx="18" fill="url(#blue)" stroke="#2563eb"/>
+  <text x="664" y="340" text-anchor="middle" class="b">Notiflex API × 2</text>
+  <text x="664" y="380" text-anchor="middle" class="s">tenant: smb · api-pool</text>
+  <rect class="box" x="470" y="474" width="388" height="122" rx="18" fill="url(#amber)" stroke="#d97706"/>
+  <text x="664" y="522" text-anchor="middle" class="b">Valkey 공유 캐시</text>
+  <text x="664" y="562" text-anchor="middle" class="s">valkey-primary · port 6379</text>
+
+  <rect x="1030" y="164" width="548" height="486" rx="24" fill="#f7fef9" stroke="#16a34a" stroke-width="3"/>
+  <rect x="1060" y="142" width="310" height="52" rx="13" fill="#fff" stroke="#16a34a" stroke-width="2"/>
+  <text x="1215" y="176" text-anchor="middle" class="b">enterprise Namespace</text>
+  <text x="1304" y="244" text-anchor="middle" class="h">Enterprise 테넌트</text>
+  <rect class="box" x="1110" y="292" width="388" height="122" rx="18" fill="url(#green)" stroke="#16a34a"/>
+  <text x="1304" y="340" text-anchor="middle" class="b">Notiflex API × 1</text>
+  <text x="1304" y="380" text-anchor="middle" class="s">tenant: enterprise · api-pool</text>
+  <rect x="1110" y="474" width="388" height="122" rx="18" fill="#fff" stroke="#16a34a" stroke-width="2" stroke-dasharray="10 8"/>
+  <text x="1304" y="522" text-anchor="middle" class="b">Cross-Namespace DNS</text>
+  <text x="1304" y="560" text-anchor="middle" class="s">valkey-primary.notiflex.svc.cluster.local</text>
+
+  <path class="blueLine" d="M302 338C340 338 350 353 458 353"/>
+  <path class="blueLine" d="M302 394C520 394 820 353 1098 353"/>
+  <path class="greenLine" d="M1110 535H870"/>
+
+  <rect x="390" y="698" width="1188" height="80" rx="16" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
+  <text x="984" y="730" text-anchor="middle" class="b" fill="#9a3412">Namespace는 리소스 경계를 만들지만 공유 Valkey의 데이터까지 자동으로 분리하지는 않는다.</text>
+  <text x="984" y="760" text-anchor="middle" class="s">완전한 격리에는 테넌트별 인스턴스, Key Prefix, ACL, NetworkPolicy 같은 추가 설계가 필요하다.</text>
+
+  <line x1="45" y1="827" x2="1627" y2="827" stroke="#94a3b8" stroke-width="2"/>
+  <text x="836" y="877" text-anchor="middle" class="cap">그림 7-4. SMB와 Enterprise의 배포 경계를 분리하면서 공유 Valkey로 남는 데이터 경계를 드러낸다.</text>
+</svg>

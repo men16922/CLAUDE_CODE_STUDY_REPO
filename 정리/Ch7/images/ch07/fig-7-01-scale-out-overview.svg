@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1672" height="941" viewBox="0 0 1672 941">
+  <defs>
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#eef5ff"/><stop offset="1" stop-color="#dbeafe"/></linearGradient>
+    <linearGradient id="green" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#effdf4"/><stop offset="1" stop-color="#dcfce7"/></linearGradient>
+    <linearGradient id="purple" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#faf5ff"/><stop offset="1" stop-color="#f3e8ff"/></linearGradient>
+    <linearGradient id="amber" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fffbeb"/><stop offset="1" stop-color="#fef3c7"/></linearGradient>
+    <marker id="arrowBlue" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12Z" fill="#2563eb"/></marker>
+    <marker id="arrowGreen" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12Z" fill="#16a34a"/></marker>
+    <style>text{font-family:Arial,'Noto Sans KR','Apple SD Gothic Neo',sans-serif;fill:#111827}.title{font-size:54px;font-weight:700}.sub{font-size:25px;fill:#4b5563}.h{font-size:30px;font-weight:700}.b{font-size:22px;font-weight:700}.s{font-size:18px;fill:#586174}.cap{font-size:20px;fill:#586174}.box{stroke-width:2.5}.line{fill:none;stroke:#2563eb;stroke-width:4;marker-end:url(#arrowBlue)}</style>
+  </defs>
+  <rect width="1672" height="941" fill="#fff"/>
+  <text x="836" y="63" text-anchor="middle" class="title">Chapter 7 — 규모 확장</text>
+  <text x="836" y="108" text-anchor="middle" class="sub">컴퓨팅 · 배포 · 테넌트 경계를 나누고 GitOps로 통합 관리</text>
+
+  <rect x="44" y="154" width="1584" height="626" rx="26" fill="#fcfcfd" stroke="#9ca3af" stroke-width="2.5"/>
+  <rect x="74" y="132" width="310" height="56" rx="14" fill="#fff" stroke="#8ea6c9" stroke-width="2"/>
+  <text x="229" y="168" text-anchor="middle" class="b">GKE: notiflex-cluster</text>
+
+  <rect class="box" x="88" y="254" width="260" height="178" rx="20" fill="url(#purple)" stroke="#7c3aed"/>
+  <text x="218" y="303" text-anchor="middle" class="h">Argo CD</text>
+  <text x="218" y="348" text-anchor="middle" class="b">root-app</text>
+  <text x="218" y="384" text-anchor="middle" class="s">App of Apps · Sync Wave</text>
+
+  <rect class="box" x="438" y="210" width="250" height="168" rx="20" fill="url(#blue)" stroke="#2563eb"/>
+  <text x="563" y="256" text-anchor="middle" class="h">default-pool × 2</text>
+  <text x="563" y="304" text-anchor="middle" class="b">시스템 · 관측</text>
+  <text x="563" y="340" text-anchor="middle" class="s">Prometheus · Grafana · Loki</text>
+
+  <rect class="box" x="736" y="210" width="250" height="168" rx="20" fill="url(#green)" stroke="#16a34a"/>
+  <text x="861" y="256" text-anchor="middle" class="h">api-pool × 1</text>
+  <text x="861" y="304" text-anchor="middle" class="b">API · Valkey</text>
+  <text x="861" y="340" text-anchor="middle" class="s">SMB · Enterprise</text>
+
+  <rect class="box" x="1034" y="210" width="250" height="168" rx="20" fill="url(#amber)" stroke="#d97706"/>
+  <text x="1159" y="256" text-anchor="middle" class="h">worker-pool × 1</text>
+  <text x="1159" y="304" text-anchor="middle" class="b">Kafka · 워커</text>
+  <text x="1159" y="340" text-anchor="middle" class="s">8장 배치 예정</text>
+
+  <rect class="box" x="1332" y="210" width="250" height="168" rx="20" fill="#f8fafc" stroke="#64748b"/>
+  <text x="1457" y="256" text-anchor="middle" class="h">ops-pool × 1</text>
+  <text x="1457" y="304" text-anchor="middle" class="b">CronJob · 운영</text>
+  <text x="1457" y="340" text-anchor="middle" class="s">8장 배치 예정</text>
+
+  <rect class="box" x="438" y="490" width="544" height="172" rx="22" fill="url(#blue)" stroke="#2563eb"/>
+  <text x="710" y="539" text-anchor="middle" class="h">notiflex Namespace</text>
+  <text x="710" y="588" text-anchor="middle" class="b">SMB Rollout × 2</text>
+  <text x="710" y="625" text-anchor="middle" class="s">기존 고객 리소스 · Valkey 공유 캐시</text>
+
+  <rect class="box" x="1038" y="490" width="544" height="172" rx="22" fill="url(#green)" stroke="#16a34a"/>
+  <text x="1310" y="539" text-anchor="middle" class="h">enterprise Namespace</text>
+  <text x="1310" y="588" text-anchor="middle" class="b">Enterprise Rollout × 1</text>
+  <text x="1310" y="625" text-anchor="middle" class="s">고객별 배포 단위 · RBAC 경계</text>
+
+  <path class="line" d="M348 326C390 326 394 576 426 576"/>
+  <path class="line" d="M348 366V716H1310V674"/>
+  <text x="648" y="744" text-anchor="middle" class="s">하위 Application 관리</text>
+  <path d="M710 490V406H838V390" fill="none" stroke="#16a34a" stroke-width="4" marker-end="url(#arrowGreen)"/>
+  <path d="M1310 490V424H884V390" fill="none" stroke="#16a34a" stroke-width="4" marker-end="url(#arrowGreen)"/>
+  <rect x="88" y="525" width="260" height="106" rx="16" fill="#fff7ed" stroke="#ea580c" stroke-width="2"/>
+  <text x="218" y="566" text-anchor="middle" class="b">로컬 권한 통제</text>
+  <text x="218" y="605" text-anchor="middle" class="s">deny · ask · allow</text>
+
+  <line x1="45" y1="827" x2="1627" y2="827" stroke="#94a3b8" stroke-width="2"/>
+  <text x="836" y="877" text-anchor="middle" class="cap">그림 7-1. 역할별 노드 풀과 고객별 Namespace를 분리하고 root-app으로 배포를 통합한다.</text>
+</svg>

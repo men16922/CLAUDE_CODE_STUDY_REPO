@@ -24,9 +24,9 @@
 | ch6 | 6.1 캐시 | ✅ | 2026-07-16 | Valkey standalone 구성 |
 | ch6 | 6.2 시크릿 관리 | ✅ | 2026-07-16 | GSM CSI Driver + WI 적용 |
 | ch6 | 6.3 Canary 전환 | ✅ | 2026-07-16 | Canary 점진 전환 적용 |
-| ch7 | 7.2 멀티 노드풀 | ⬜ | | |
-| ch7 | 7.3 App of Apps | ⬜ | | |
-| ch7 | 7.4 멀티테넌시 | ⬜ | | |
+| ch7 | 7.2 멀티 노드풀 | ✅ | 2026-07-25 | nodeSelector 기반 api-pool, worker-pool, ops-pool 설계 |
+| ch7 | 7.3 App of Apps | ✅ | 2026-07-25 | root-app 및 Sync Wave 1, 2 적용 |
+| ch7 | 7.4 멀티테넌시 | ✅ | 2026-07-25 | enterprise namespace 및 Cross-Namespace DNS 적용 |
 | ch8 | 8.1 메시징 | ⬜ | | |
 | ch8 | 8.2 트레이싱 | ⬜ | | |
 | ch8 | 8.3 CronJob | ⬜ | | |
@@ -52,6 +52,9 @@
 | 캐시 (ch6.1) | Valkey | Redis, Memcached | Redis 프로토콜 및 원자적 카운터(`INCR`) 완벽 호환과 라이선스 우려 배제 |
 | 시크릿 관리 (ch6.2) | GSM CSI + WI | K8s Secret, Vault | 암호 키 탈취가 불가능한 무키(keyless) 구조 및 Google Cloud 감사 로그 지원 |
 | Canary 배포 (ch6.3) | Argo Rollouts Canary | Blue/Green | 배포 중 순간 리소스 2배 소요 한계 극복 및 단계적 사용자 통제 가능 |
+| 노드 배치 (ch7.2) | nodeSelector | Taint/Toleration, Node Affinity | 가장 단순하며 GKE 자동 라벨(`cloud.google.com/gke-nodepool`)을 즉시 활용 가능 |
+| 다수 앱 관리 (ch7.3) | App of Apps + Sync Wave | ApplicationSet, 수동 관리 | root-app 하나로 여러 Application의 설치 순서(Sync Wave)와 라이프사이클을 안전하게 관리 |
+| 멀티테넌시 (ch7.4) | Namespace + RBAC | vCluster, 물리 클러스터 분리 | 추가적인 연산 비용 없이 논리적 리소스 격리와 Cross-Namespace DNS 호환 제공 |
 
 ## 현재 버전
 
@@ -67,7 +70,10 @@
 
 | 노드풀 | 머신 타입 | 노드 수 | 주요 워크로드 |
 |--------|----------|---------|-------------|
-| default-pool | `e2-medium` | `0` (Downscaled) | API Pod, Valkey, ArgoCD, Prometheus, Loki, Fluent Bit (리소스 정지 상태) |
+| default-pool | `e2-medium` | 2 | 시스템 컴포넌트 및 관측 가능성 스택 |
+| api-pool | `e2-medium` | 1 | Notiflex API (SMB x 2, Enterprise x 1), Valkey |
+| worker-pool | `e2-standard-2` | 1 | Kafka 및 비동기 워커 예정 (ch8.1) |
+| ops-pool | `e2-small` | 1 | CronJob 및 운영 도구 예정 (ch8.3) |
 
 ## 트러블슈팅 이력
 

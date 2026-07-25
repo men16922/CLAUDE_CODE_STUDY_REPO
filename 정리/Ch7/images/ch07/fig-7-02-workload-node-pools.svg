@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1672" height="941" viewBox="0 0 1672 941">
+  <defs>
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#eef5ff"/><stop offset="1" stop-color="#dbeafe"/></linearGradient>
+    <linearGradient id="green" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#effdf4"/><stop offset="1" stop-color="#dcfce7"/></linearGradient>
+    <linearGradient id="amber" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fffbeb"/><stop offset="1" stop-color="#fef3c7"/></linearGradient>
+    <linearGradient id="red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff5f5"/><stop offset="1" stop-color="#fee2e2"/></linearGradient>
+    <style>text{font-family:Arial,'Noto Sans KR','Apple SD Gothic Neo',sans-serif;fill:#111827}.title{font-size:54px;font-weight:700}.sub{font-size:25px;fill:#4b5563}.h{font-size:30px;font-weight:700}.b{font-size:22px;font-weight:700}.s{font-size:18px;fill:#586174}.cap{font-size:20px;fill:#586174}.box{stroke-width:2.5}</style>
+  </defs>
+  <rect width="1672" height="941" fill="#fff"/>
+  <text x="836" y="63" text-anchor="middle" class="title">단일 노드 풀에서 역할별 노드 풀로</text>
+  <text x="836" y="108" text-anchor="middle" class="sub">nodeSelector로 워크로드의 배치 경계를 명확히 한다</text>
+
+  <rect x="48" y="154" width="664" height="626" rx="24" fill="#fcfcfd" stroke="#9ca3af" stroke-width="2.5"/>
+  <text x="380" y="207" text-anchor="middle" class="h">기존: default-pool에 집중</text>
+  <text x="380" y="248" text-anchor="middle" class="s">서비스와 운영 워크로드가 CPU·메모리를 함께 경쟁</text>
+  <rect class="box" x="118" y="296" width="524" height="342" rx="24" fill="url(#red)" stroke="#ef4444"/>
+  <text x="380" y="344" text-anchor="middle" class="h">default-pool · e2-medium × 2</text>
+  <rect x="158" y="390" width="190" height="82" rx="14" fill="#fff" stroke="#2563eb" stroke-width="2"/><text x="253" y="439" text-anchor="middle" class="b">Notiflex API</text>
+  <rect x="412" y="390" width="190" height="82" rx="14" fill="#fff" stroke="#16a34a" stroke-width="2"/><text x="507" y="439" text-anchor="middle" class="b">Valkey</text>
+  <rect x="158" y="506" width="190" height="82" rx="14" fill="#fff" stroke="#7c3aed" stroke-width="2"/><text x="253" y="555" text-anchor="middle" class="b">관측 스택</text>
+  <rect x="412" y="506" width="190" height="82" rx="14" fill="#fff" stroke="#d97706" stroke-width="2"/><text x="507" y="555" text-anchor="middle" class="b">Argo CD</text>
+  <rect x="166" y="676" width="428" height="58" rx="14" fill="#fef2f2" stroke="#ef4444" stroke-width="2"/>
+  <text x="380" y="713" text-anchor="middle" class="b" fill="#b91c1c">한 워크로드의 부하가 전체에 전파</text>
+
+  <rect x="772" y="154" width="852" height="626" rx="24" fill="#fcfcfd" stroke="#9ca3af" stroke-width="2.5"/>
+  <text x="1198" y="207" text-anchor="middle" class="h">개선: 역할별 독립 확장</text>
+  <text x="1198" y="248" text-anchor="middle" class="s">필요한 노드 풀만 늘리고 비용과 장애 영향을 분리</text>
+
+  <rect class="box" x="828" y="292" width="336" height="160" rx="20" fill="url(#blue)" stroke="#2563eb"/>
+  <text x="996" y="337" text-anchor="middle" class="h">default-pool × 2</text>
+  <text x="996" y="385" text-anchor="middle" class="b">시스템 · 관측</text>
+  <text x="996" y="421" text-anchor="middle" class="s">e2-medium</text>
+
+  <rect class="box" x="1232" y="292" width="336" height="160" rx="20" fill="url(#green)" stroke="#16a34a"/>
+  <text x="1400" y="337" text-anchor="middle" class="h">api-pool × 1</text>
+  <text x="1400" y="385" text-anchor="middle" class="b">API · Valkey</text>
+  <text x="1400" y="421" text-anchor="middle" class="s">e2-medium</text>
+
+  <rect class="box" x="828" y="500" width="336" height="160" rx="20" fill="url(#amber)" stroke="#d97706"/>
+  <text x="996" y="545" text-anchor="middle" class="h">worker-pool × 1</text>
+  <text x="996" y="593" text-anchor="middle" class="b">Kafka · 워커</text>
+  <text x="996" y="629" text-anchor="middle" class="s">e2-standard-2</text>
+
+  <rect class="box" x="1232" y="500" width="336" height="160" rx="20" fill="#f8fafc" stroke="#64748b"/>
+  <text x="1400" y="545" text-anchor="middle" class="h">ops-pool × 1</text>
+  <text x="1400" y="593" text-anchor="middle" class="b">CronJob · 운영</text>
+  <text x="1400" y="629" text-anchor="middle" class="s">e2-small</text>
+
+  <rect x="912" y="688" width="572" height="46" rx="12" fill="#ecfdf5" stroke="#16a34a" stroke-width="2"/>
+  <text x="1198" y="718" text-anchor="middle" class="b" fill="#166534">API와 데이터 워크로드를 독립적으로 확장</text>
+
+  <line x1="45" y1="827" x2="1627" y2="827" stroke="#94a3b8" stroke-width="2"/>
+  <text x="836" y="877" text-anchor="middle" class="cap">그림 7-2. 모든 워크로드가 경쟁하던 구조를 역할별 노드 풀로 나눠 확장 단위를 분리한다.</text>
+</svg>

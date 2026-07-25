@@ -3,11 +3,13 @@ kind: Application
 metadata:
   name: notiflex-smb
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   project: default
   source:
-    repoURL: https://github.com/men16922/CLAUDE_CODE_STUDY_REPO.git
-    targetRevision: HEAD
+    repoURL: https://github.com/men16922/AI--------------------------with-------.git
+    targetRevision: main
     path: k8s/smb
   destination:
     server: https://kubernetes.default.svc
