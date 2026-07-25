@@ -231,6 +231,10 @@ kubectl --context gke-sysnet4admin_book_gitaiops get nodes \
 
 총 다섯 개의 노드가 `Ready` 상태인지 확인합니다.
 
+> 🔗 **GCP 콘솔 직접 확인 (로그인 필요)**:  
+> [Google Cloud Console - GKE 노드풀 관리 화면](https://console.cloud.google.com/kubernetes/nodepool/asia-northeast3-a/notiflex-cluster?project=claude-study-501117)에서 4개의 역할별 노드풀(`default-pool`, `api-pool`, `worker-pool`, `ops-pool`) 상태 및 개별 Spot 노드를 직접 시각적으로 확인하실 수 있습니다.
+
+
 ## Notiflex API를 api-pool에 배치
 
 `k8s/smb/rollout.yaml`의 Pod template에 다음 설정을 추가합니다.
@@ -419,6 +423,15 @@ kubectl --context gke-sysnet4admin_book_gitaiops get application -n argocd
 ```
 
 `root-app`, `notiflex-smb`, `monitoring`이 모두 `Synced`와 `Healthy` 상태인지 확인합니다.
+
+### 📷 실습 인증 - Argo CD 대시보드 및 App of Apps 구조
+
+![실습 인증 - Argo CD Applications 대시보드](./images/ch07/proof-7-01-argocd-applications.png)
+> 그림 7-3-1. (실습 인증) Argo CD Web UI 대시보드에서 root-app 및 하위 Application(`monitoring`, `notiflex-smb`, `notiflex-enterprise`)이 통합 등록되어 관리되는 화면.
+
+![실습 인증 - Argo CD root-app 상세 구조](./images/ch07/proof-7-02-argocd-root-app.png)
+> 그림 7-3-2. (실습 인증) root-app 상세 트리 화면에서 하위 Application 리소스들이 감시되어 자동 생성 및 동기화되는 모습.
+
 
 ## Sync Wave로 설치 순서 정하기
 
@@ -642,6 +655,15 @@ kubectl --context gke-sysnet4admin_book_gitaiops get pods -n enterprise
 ```
 
 `notiflex-enterprise`가 `Synced`, `Healthy`이고 Enterprise API Pod가 `Running`인지 확인합니다.
+
+### 📷 실습 인증 - Enterprise 테넌트 배포 및 워크로드
+
+![실습 인증 - Argo CD Enterprise 애플리케이션 상세](./images/ch07/proof-7-03-argocd-enterprise.png)
+> 그림 7-4-1. (실습 인증) Argo CD에서 Enterprise Namespace로 배포된 `notiflex-enterprise` 애플리케이션 및 Canary Rollout 리소스 트리.
+
+> 🔗 **GCP 콘솔 직접 확인 (로그인 필요)**:  
+> [Google Cloud Console - GKE 워크로드 관리 화면](https://console.cloud.google.com/kubernetes/workload_/gcloud/asia-northeast3-a/notiflex-cluster?project=claude-study-501117)에서 `notiflex` 및 `enterprise` 네임스페이스에 분리 배치된 Rollout 워크로드 상태를 직접 확인하실 수 있습니다.
+
 
 ## Valkey 연결 확인
 
