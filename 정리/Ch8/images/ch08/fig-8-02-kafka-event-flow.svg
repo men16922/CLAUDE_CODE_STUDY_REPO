@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1672" height="941" viewBox="0 0 1672 941">
+  <defs>
+    <linearGradient id="red" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff7ed"/><stop offset="1" stop-color="#fee2e2"/></linearGradient>
+    <linearGradient id="green" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#effdf4"/><stop offset="1" stop-color="#dcfce7"/></linearGradient>
+    <linearGradient id="amber" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fffbeb"/><stop offset="1" stop-color="#fef3c7"/></linearGradient>
+    <marker id="arrowRed" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12Z" fill="#dc2626"/></marker>
+    <marker id="arrowGreen" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12Z" fill="#16a34a"/></marker>
+    <style>text{font-family:Arial,'Noto Sans KR','Apple SD Gothic Neo',sans-serif;fill:#111827}.title{font-size:48px;font-weight:700}.sub{font-size:24px;fill:#4b5563}.h{font-size:29px;font-weight:700}.b{font-size:21px;font-weight:700}.s{font-size:18px;fill:#586174}.cap{font-size:20px;fill:#586174}.box{stroke-width:2.5}.redline{fill:none;stroke:#dc2626;stroke-width:4;marker-end:url(#arrowRed)}.greenline{fill:none;stroke:#16a34a;stroke-width:4;marker-end:url(#arrowGreen)}</style>
+  </defs>
+  <rect width="1672" height="941" fill="#fff"/>
+  <text x="836" y="70" text-anchor="middle" class="title">동기 처리에서 이벤트 드리븐 처리로</text>
+  <text x="836" y="112" text-anchor="middle" class="sub">API의 책임을 요청 수신과 이벤트 기록으로 줄이고 실제 처리는 Consumer가 맡는다</text>
+
+  <rect x="68" y="166" width="1536" height="248" rx="24" fill="#fffafa" stroke="#fca5a5" stroke-width="2.5"/>
+  <text x="112" y="215" class="h" fill="#b91c1c">기존 · 동기 처리</text>
+  <rect class="box" x="132" y="260" width="220" height="96" rx="16" fill="#fff" stroke="#dc2626"/>
+  <text x="242" y="319" text-anchor="middle" class="b">클라이언트</text>
+  <rect class="box" x="486" y="260" width="220" height="96" rx="16" fill="url(#red)" stroke="#dc2626"/>
+  <text x="596" y="319" text-anchor="middle" class="b">API 수신</text>
+  <rect class="box" x="840" y="260" width="250" height="96" rx="16" fill="url(#red)" stroke="#dc2626"/>
+  <text x="965" y="319" text-anchor="middle" class="b">알림 처리 대기</text>
+  <rect class="box" x="1224" y="260" width="220" height="96" rx="16" fill="#fff" stroke="#dc2626"/>
+  <text x="1334" y="319" text-anchor="middle" class="b">HTTP 응답</text>
+  <path class="redline" d="M352 308H474"/><path class="redline" d="M706 308H828"/><path class="redline" d="M1090 308H1212"/>
+  <text x="965" y="389" text-anchor="middle" class="s">처리가 길어지면 응답 지연 · Pod 종료 시 유실 가능</text>
+
+  <rect x="68" y="462" width="1536" height="314" rx="24" fill="#f8fdf9" stroke="#86efac" stroke-width="2.5"/>
+  <text x="112" y="512" class="h" fill="#15803d">변경 · 비동기 처리</text>
+  <rect class="box" x="118" y="570" width="210" height="96" rx="16" fill="#fff" stroke="#16a34a"/>
+  <text x="223" y="629" text-anchor="middle" class="b">클라이언트</text>
+  <rect class="box" x="416" y="570" width="210" height="96" rx="16" fill="url(#green)" stroke="#16a34a"/>
+  <text x="521" y="612" text-anchor="middle" class="b">API</text>
+  <text x="521" y="642" text-anchor="middle" class="s">Producer</text>
+  <rect class="box" x="714" y="550" width="278" height="136" rx="18" fill="url(#amber)" stroke="#d97706"/>
+  <text x="853" y="597" text-anchor="middle" class="h">Kafka Topic</text>
+  <text x="853" y="637" text-anchor="middle" class="b">Partition × 3</text>
+  <text x="853" y="668" text-anchor="middle" class="s">디스크 저장 · Offset</text>
+  <rect class="box" x="1080" y="570" width="240" height="96" rx="16" fill="url(#green)" stroke="#16a34a"/>
+  <text x="1200" y="612" text-anchor="middle" class="b">Consumer Group</text>
+  <text x="1200" y="642" text-anchor="middle" class="s">비동기 처리</text>
+  <path class="greenline" d="M328 618H404"/><path class="greenline" d="M626 618H702"/><path class="greenline" d="M992 618H1068"/>
+  <path class="greenline" d="M521 570V534H1426V570"/>
+  <rect class="box" x="1350" y="570" width="170" height="96" rx="16" fill="#fff" stroke="#16a34a"/>
+  <text x="1435" y="608" text-anchor="middle" class="b">즉시 응답</text>
+  <text x="1435" y="641" text-anchor="middle" class="s">HTTP</text>
+  <text x="853" y="735" text-anchor="middle" class="s">Consumer가 멈춰도 메시지를 보관하고 마지막 Commit 이후부터 다시 처리</text>
+
+  <line x1="45" y1="827" x2="1627" y2="827" stroke="#94a3b8" stroke-width="2"/>
+  <text x="836" y="877" text-anchor="middle" class="cap">그림 8-2. Kafka가 요청 수신과 실제 알림 처리 사이의 시간과 확장 경계를 분리한다.</text>
+</svg>

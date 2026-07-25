@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1672" height="941" viewBox="0 0 1672 941">
+  <defs>
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#eef5ff"/><stop offset="1" stop-color="#dbeafe"/></linearGradient>
+    <linearGradient id="green" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#effdf4"/><stop offset="1" stop-color="#dcfce7"/></linearGradient>
+    <linearGradient id="amber" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fffbeb"/><stop offset="1" stop-color="#fef3c7"/></linearGradient>
+    <marker id="arrowBlue" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12Z" fill="#2563eb"/></marker>
+    <marker id="arrowOrange" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0 0L12 6L0 12Z" fill="#ea580c"/></marker>
+    <style>text{font-family:Arial,'Noto Sans KR','Apple SD Gothic Neo',sans-serif;fill:#111827}.title{font-size:48px;font-weight:700}.sub{font-size:24px;fill:#4b5563}.h{font-size:28px;font-weight:700}.b{font-size:21px;font-weight:700}.s{font-size:18px;fill:#586174}.cap{font-size:20px;fill:#586174}.box{stroke-width:2.5}.blue{fill:none;stroke:#2563eb;stroke-width:4;marker-end:url(#arrowBlue)}.orange{fill:none;stroke:#ea580c;stroke-width:4;marker-end:url(#arrowOrange)}</style>
+  </defs>
+  <rect width="1672" height="941" fill="#fff"/>
+  <text x="836" y="70" text-anchor="middle" class="title">반복 작업은 자동화하고 위험 작업은 절차화하기</text>
+  <text x="836" y="112" text-anchor="middle" class="sub">CronJob과 command-guardrails가 서로 다른 운영 실수를 줄인다</text>
+
+  <rect x="68" y="175" width="710" height="574" rx="26" fill="#f8fbff" stroke="#93c5fd" stroke-width="2.5"/>
+  <text x="423" y="231" text-anchor="middle" class="h">자동 경로 · Kubernetes CronJob</text>
+  <rect class="box" x="132" y="292" width="232" height="110" rx="18" fill="url(#blue)" stroke="#2563eb"/>
+  <text x="248" y="337" text-anchor="middle" class="b">*/5 * * * *</text>
+  <text x="248" y="373" text-anchor="middle" class="s">5분마다 실행</text>
+  <rect class="box" x="486" y="292" width="232" height="110" rx="18" fill="url(#blue)" stroke="#2563eb"/>
+  <text x="602" y="337" text-anchor="middle" class="b">/health</text>
+  <text x="602" y="373" text-anchor="middle" class="s">HTTP 200 확인</text>
+  <path class="blue" d="M364 347H474"/>
+  <rect class="box" x="132" y="493" width="232" height="110" rx="18" fill="url(#green)" stroke="#16a34a"/>
+  <text x="248" y="538" text-anchor="middle" class="b">성공</text>
+  <text x="248" y="574" text-anchor="middle" class="s">Job History 보관</text>
+  <rect class="box" x="486" y="493" width="232" height="110" rx="18" fill="url(#amber)" stroke="#d97706"/>
+  <text x="602" y="538" text-anchor="middle" class="b">실패</text>
+  <text x="602" y="574" text-anchor="middle" class="s">재시도 · 알림 연결</text>
+  <path class="blue" d="M602 402V481"/><path class="blue" d="M486 437H248V481"/>
+  <text x="423" y="682" text-anchor="middle" class="s">concurrencyPolicy: Forbid · ops-pool 배치</text>
+
+  <rect x="894" y="175" width="710" height="574" rx="26" fill="#fffaf7" stroke="#fdba74" stroke-width="2.5"/>
+  <text x="1249" y="231" text-anchor="middle" class="h">수동 경로 · command-guardrails</text>
+  <rect class="box" x="950" y="292" width="240" height="110" rx="18" fill="url(#amber)" stroke="#ea580c"/>
+  <text x="1070" y="337" text-anchor="middle" class="b">사전 확인</text>
+  <text x="1070" y="373" text-anchor="middle" class="s">영향 · 의존성 · 백업</text>
+  <rect class="box" x="1308" y="292" width="240" height="110" rx="18" fill="url(#amber)" stroke="#ea580c"/>
+  <text x="1428" y="337" text-anchor="middle" class="b">사용자 승인</text>
+  <text x="1428" y="373" text-anchor="middle" class="s">대상과 범위 재확인</text>
+  <path class="orange" d="M1190 347H1296"/>
+  <rect class="box" x="950" y="493" width="240" height="110" rx="18" fill="url(#amber)" stroke="#ea580c"/>
+  <text x="1070" y="538" text-anchor="middle" class="b">실행</text>
+  <text x="1070" y="574" text-anchor="middle" class="s">Git → ArgoCD 우선</text>
+  <rect class="box" x="1308" y="493" width="240" height="110" rx="18" fill="url(#green)" stroke="#16a34a"/>
+  <text x="1428" y="538" text-anchor="middle" class="b">사후 검증</text>
+  <text x="1428" y="574" text-anchor="middle" class="s">상태 · 로그 · 메트릭</text>
+  <path class="orange" d="M1428 402V448H1070V481"/><path class="orange" d="M1190 548H1296"/>
+  <text x="1249" y="682" text-anchor="middle" class="s">Topic 삭제 · CronJob 수동 실행 · Tenant Namespace 삭제</text>
+
+  <line x1="45" y1="827" x2="1627" y2="827" stroke="#94a3b8" stroke-width="2"/>
+  <text x="836" y="877" text-anchor="middle" class="cap">그림 8-4. 정해진 작업은 스케줄로 실행하고, 영향이 큰 작업은 확인과 승인 단계를 거친다.</text>
+</svg>

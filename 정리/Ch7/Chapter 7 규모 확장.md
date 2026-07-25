@@ -23,11 +23,7 @@
 
 ## 7장 전체 흐름
 
-그림 7-1. 컴퓨팅 자원, 배포 단위, 고객 경계를 분리한 7장의 전체 구조
-
 ![그림 7-1. 규모 확장 전체 구조](./images/ch07/fig-7-01-scale-out-overview.png)
-
-> 그림 7-1. 역할별 노드 풀과 고객별 Namespace를 분리하고 여러 배포 단위는 Argo CD의 root-app으로 통합 관리한다.
 
 ```mermaid
 flowchart LR
@@ -133,8 +129,6 @@ flowchart TB
 
 ![그림 7-2. 단일 노드 풀과 역할별 노드 풀 비교](./images/ch07/fig-7-02-workload-node-pools.png)
 
-> 그림 7-2. 모든 워크로드가 한곳에서 경쟁하던 구조를 네 개의 역할별 노드 풀로 나누어 확장 단위를 분리한다.
-
 ## 노드 배치 방법 비교
 
 | 방식 | 복잡도 | 장점 | 단점 | 현재 적합도 |
@@ -231,8 +225,7 @@ kubectl --context gke-sysnet4admin_book_gitaiops get nodes \
 
 총 다섯 개의 노드가 `Ready` 상태인지 확인합니다.
 
-> 🔗 **GCP 콘솔 직접 확인 (로그인 필요)**:  
-> [Google Cloud Console - GKE 노드풀 관리 화면](https://console.cloud.google.com/kubernetes/nodepool/asia-northeast3-a/notiflex-cluster?project=claude-study-501117)에서 4개의 역할별 노드풀(`default-pool`, `api-pool`, `worker-pool`, `ops-pool`) 상태 및 개별 Spot 노드를 직접 시각적으로 확인하실 수 있습니다.
+![alt text](images/ch07/image.png)
 
 
 ## Notiflex API를 api-pool에 배치
@@ -311,8 +304,6 @@ ApplicationSet은 같은 애플리케이션을 여러 클러스터나 dev/stagin
 하나의 루트 Application이 `argocd/apps/` 디렉터리를 감시하고 그 안의 Application YAML을 하위 Application으로 자동 생성합니다.
 
 ![그림 7-3. App of Apps와 Sync Wave 동작 구조](./images/ch07/fig-7-03-app-of-apps-sync-wave.png)
-
-> 그림 7-3. root-app이 Git의 하위 Application을 만들고 Sync Wave가 인프라부터 애플리케이션까지 동기화 순서를 보장한다.
 
 ```mermaid
 flowchart TB
@@ -427,10 +418,8 @@ kubectl --context gke-sysnet4admin_book_gitaiops get application -n argocd
 ### 📷 실습 인증 - Argo CD 대시보드 및 App of Apps 구조
 
 ![실습 인증 - Argo CD Applications 대시보드](./images/ch07/proof-7-01-argocd-applications.png)
-> 그림 7-3-1. (실습 인증) Argo CD Web UI 대시보드에서 root-app 및 하위 Application(`monitoring`, `notiflex-smb`, `notiflex-enterprise`)이 통합 등록되어 관리되는 화면.
 
 ![실습 인증 - Argo CD root-app 상세 구조](./images/ch07/proof-7-02-argocd-root-app.png)
-> 그림 7-3-2. (실습 인증) root-app 상세 트리 화면에서 하위 Application 리소스들이 감시되어 자동 생성 및 동기화되는 모습.
 
 
 ## Sync Wave로 설치 순서 정하기
@@ -508,8 +497,6 @@ Notiflex는 여러 기업 고객에게 서비스를 제공하는 B2B 알림 SaaS
 - Enterprise API는 Cross-Namespace DNS로 Valkey에 접근
 
 ![그림 7-4. Namespace 기반 멀티 테넌시와 공유 데이터 경계](./images/ch07/fig-7-04-namespace-tenancy-boundary.png)
-
-> 그림 7-4. SMB와 Enterprise의 컴퓨팅·배포 경계를 나누되, 공유 Valkey에 남아 있는 데이터 경계의 한계도 함께 보여준다.
 
 ```mermaid
 flowchart TB
@@ -659,10 +646,7 @@ kubectl --context gke-sysnet4admin_book_gitaiops get pods -n enterprise
 ### 📷 실습 인증 - Enterprise 테넌트 배포 및 워크로드
 
 ![실습 인증 - Argo CD Enterprise 애플리케이션 상세](./images/ch07/proof-7-03-argocd-enterprise.png)
-> 그림 7-4-1. (실습 인증) Argo CD에서 Enterprise Namespace로 배포된 `notiflex-enterprise` 애플리케이션 및 Canary Rollout 리소스 트리.
-
-> 🔗 **GCP 콘솔 직접 확인 (로그인 필요)**:  
-> [Google Cloud Console - GKE 워크로드 관리 화면](https://console.cloud.google.com/kubernetes/workload_/gcloud/asia-northeast3-a/notiflex-cluster?project=claude-study-501117)에서 `notiflex` 및 `enterprise` 네임스페이스에 분리 배치된 Rollout 워크로드 상태를 직접 확인하실 수 있습니다.
+![alt text](image.png)
 
 
 ## Valkey 연결 확인
