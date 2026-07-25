@@ -161,8 +161,6 @@
     ![실습 인증 - GitAIOps 통합 관제 대시보드](./images/ch09/proof-9-01-gitaiops-dashboard.png)
     > 그림 9-1-1. (실습 인증) Argo CD Web UI 대시보드에서 root-app 아래 `monitoring`, `notiflex-smb`, `notiflex-enterprise`, `kafka` 등 플랫폼 전체 애플리케이션이 통합 등록되어 관리되는 화면.
     
-    > 🔗 **GCP 콘솔 직접 확인 (로그인 필요)**:  
-    > [Google Cloud Console - GKE 클러스터 및 통합 워크로드 관리 화면](https://console.cloud.google.com/kubernetes/workload_/gcloud/asia-northeast3-a/notiflex-cluster?project=claude-study-501117)에서 GKE 클러스터 상에 동적으로 스케줄링된 전체 워크로드 및 노드풀 운영 현황을 직접 확인하실 수 있습니다.
     
     새로운 마이크로서비스를 추가하는 기본 절차도 저장소 구조에서 읽어낼 수 있습니다.
     
