@@ -270,8 +270,17 @@ NAME            CLUSTER          PARTITIONS   REPLICATION FACTOR   READY
 notifications   notiflex-kafka   3            1                    True
 ```
 
+### 📷 실습 인증 - Argo CD Kafka 통합 배포
+
+![실습 인증 - Argo CD Kafka 애플리케이션 통합](./images/ch08/proof-8-01-argocd-kafka-app.png)
+> 그림 8-1-1. (실습 인증) Argo CD Web UI 대시보드에서 root-app 아래 `kafka` Application이 추가 등록되어 통합 관리되는 모습.
+
+![실습 인증 - Argo CD Kafka 상세 리소스 트리](./images/ch08/proof-8-02-argocd-kafka-detail.png)
+> 그림 8-1-2. (실습 인증) `kafka` Application 상세 화면에서 Strimzi KRaft 기반 `KafkaNodePool`, `Kafka`, `KafkaTopic` CRD 리소스가 정상 동기화되어 `worker-pool` 노드에 배치된 화면.
+
 > 🔗 **GCP 콘솔 직접 확인 (로그인 필요)**:  
 > [Google Cloud Console - GKE 워크로드 관리 화면](https://console.cloud.google.com/kubernetes/workload_/gcloud/asia-northeast3-a/notiflex-cluster?project=claude-study-501117)에서 `kafka` 네임스페이스에 설치된 Strimzi Cluster Operator 및 KRaft 기반 Kafka Broker Pod(`worker-pool` 배치)를 직접 시각적으로 확인하실 수 있습니다.
+
 
 
 Partition이 세 개이면 같은 Consumer Group에서 최대 세 Consumer가 동시에 유효하게 작업합니다.
@@ -473,6 +482,10 @@ kubectl --context gke-sysnet4admin_book_gitaiops \
 NAME      READY   STATUS    RESTARTS
 tempo-0   1/1     Running   0
 ```
+
+> 🔗 **GCP 콘솔 직접 확인 (로그인 필요)**:  
+> [Google Cloud Console - GKE 워크로드 관리 화면](https://console.cloud.google.com/kubernetes/workload_/gcloud/asia-northeast3-a/notiflex-cluster?project=claude-study-501117)에서 `monitoring` 네임스페이스에 설치된 Grafana Tempo StatefulSet Pod(`ops-pool` 배치) 및 OTLP gRPC(4317) 파드 상태를 직접 시각적으로 확인하실 수 있습니다.
+
 
 > `grafana/tempo` Chart에서 Deprecated 경고가 표시될 수 있습니다. 학습 환경에서는 단일 바이너리 구성이 충분하지만 대규모 프로덕션 환경에서는 컴포넌트를 분리하는 `tempo-distributed` 구성을 검토합니다.
 >
