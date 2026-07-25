@@ -64,9 +64,6 @@
     ![실습 인증 - App of Apps 온보딩 아키텍처 리소스 트리](./images/appendix/proof-app-02-onboarding-architecture.png)
     > 그림 A-1-2. (실습 인증) `root-app` 상세 화면에서 App of Apps 패턴을 통해 등록된 하위 Application 매니페스트 리소스 트리 구조.
 
-    > 🔗 **GCP 콘솔 직접 확인 (로그인 필요)**:  
-    > [Google Cloud Console - GKE 클러스터 및 통합 워크로드 관리 화면](https://console.cloud.google.com/kubernetes/workload_/gcloud/asia-northeast3-a/notiflex-cluster?project=claude-study-501117)에서 신규 엔지니어가 직접 참조할 수 있는 GKE 상의 노드풀 및 워크로드 상태를 실시간 확인하실 수 있습니다.
-
 
     ## 2. 전체 아키텍처
 
